@@ -1,6 +1,6 @@
 Firefly
 ===========================
-Firefly is a game server engine and developed by c++ language.Open Source,stable and robust.
+Firefly is a game server engine and developed by c++ language,open source,stable and robust.
 
 ****
 	
