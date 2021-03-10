@@ -490,7 +490,7 @@ namespace Firefly
                             break;
                         }
                         m_dwRecvPacketCount++;
-                        unsigned int nPacket = htonl(strRecvData.size());
+                        //unsigned int nPacket = htonl(strRecvData.size());
                         MsgHead* pMsgHead = (MsgHead*)(m_cbRecvBuf + wPacketSize);
                         if (pMsgHead->nBodyLen > 0)
                         {

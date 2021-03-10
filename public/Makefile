@@ -11,7 +11,7 @@ CC      := g++
 LIBS    :=
 LDFLAGS :=
 DEFINES :=
-INCLUDE :=-I../../core/
+INCLUDE :=-I../core/ -I../pb/
 CFLAGS  := -std=c++11 -fPIC -g -Wall -O3 $(DEFINES) $(INCLUDE)
 CXXFLAGS:= $(CFLAGS) -DHAVE_CONFIG_H
 SHARE   := -shared -lpthread -o 
@@ -19,7 +19,7 @@ SHARE   := -shared -lpthread -o
 #i think you should do anything here
   
 #source file
-SOURCE  := $(wildcard ./share/*.cpp) $(wildcard ./base/*.cpp)
+SOURCE  := $(wildcard ./base/*.cpp) $(wildcard ./share/*.cpp)
 OBJS    := $(patsubst %.cc,%.o,$(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(SOURCE))))
 
 .PHONY : everything objs clean veryclean rebuild
@@ -42,6 +42,6 @@ veryclean: clean
   
 $(TARGET): $(OBJS)
 	$(CC) $(CXXFLAGS) $(SHARE) $@ $(OBJS) $(LDFLAGS) $(LIBS)
-	cp ./$(TARGET) ../../lib
+	cp ./$(TARGET) ../lib
 	rm -rf *.o
 	

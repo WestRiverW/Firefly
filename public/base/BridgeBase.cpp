@@ -8,10 +8,10 @@
 #include "BridgeBase.h"
 
 BridgeBase::BridgeBase()
-    :m_pBridge(nullptr),
-    m_pTimer(nullptr),
-    m_pIMsgServer(nullptr),
+    :m_pIMsgServer(nullptr),
     m_pIMsgClient(nullptr),
+	m_pBridge(nullptr),
+    m_pTimer(nullptr),
     m_pLuaConfig(nullptr),
     m_pContactCenter(nullptr),
     m_pServerInfo(nullptr),
@@ -117,4 +117,5 @@ bool BridgeBase::OnServerRead( ServerItem *pItem, MsgHead *pMsgHead, void *pData
 bool BridgeBase::SetConfig(pb::ServerInfo* pServerInfo)
 {
     m_pServerInfo = pServerInfo;
+	return true;
 }

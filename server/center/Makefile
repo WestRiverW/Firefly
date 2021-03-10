@@ -4,25 +4,21 @@
 ######################################
   
 #target you can change test to what you want
-#共享库文件名，lib*.so
 TARGET  := center
   
 #compile and lib parameter
-#编译参数
 CC      := g++
-LIBS    := -L./ -L/usr/local/lib/ -L/usr/local/lib64/ -L/usr/lib64/mysql/ -L../../lib/ -lcurl -lhiredis -lcore -llua -ldl -lgflags -lpbproto
+LIBS    := -L./ -L/usr/local/lib/ -L/usr/local/lib64/ -L/usr/lib64/mysql/ -L../../lib/ -lcurl -lhiredis -lcore -llua -ldl -lgflags -lpublic -lpbproto
 LDFLAGS :=
 DEFINES :=
-INCLUDE := -I/usr/local/include/ -I/usr/include/mysql/ -I../ -I../../core/
+INCLUDE := -I/usr/local/include/ -I/usr/include/mysql/ -I../../core/ -I../../public/ -I../../pb/
 CFLAGS  := -std=c++11 -fPIC -g -Wall -O3 $(DEFINES) $(INCLUDE)
 CXXFLAGS:= $(CFLAGS) -DHAVE_CONFIG_H
 SHARE   := -shared -lpthread -o 
   
 #i think you should do anything here
-#下面的基本上不需要做任何改动了
   
 #source file
-#源文件，自动找所有.c和.cpp文件，并将目标定义为同名.o文件
 SOURCE  := $(wildcard *.c) $(wildcard *.cpp)
 OBJS    := $(patsubst %.cc,%.o, $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(SOURCE))))
 

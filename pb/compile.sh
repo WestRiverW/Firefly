@@ -1,5 +1,5 @@
 #!/bin/bash
-bin='protoc'
+bin='/usr/local/bin/protoc'
 
 ${bin} -I=./ --cpp_out=./ common.proto
 ${bin} -I=./ --cpp_out=./ hall.proto

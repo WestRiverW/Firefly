@@ -6,7 +6,7 @@ CC      := g++
 LIBS    := -L../../lib/
 LDFLAGS :=
 DEFINES :=
-INCLUDE := -I/usr/include/mysql/ -I/usr/include/ -I../../
+INCLUDE := -I/usr/include/mysql/ -I/usr/include/ -I../../core/ -I../../public/
 CFLAGS  := -std=c++11 -fPIC -g -Wall -O3 $(DEFINES) $(INCLUDE)
 CXXFLAGS:= $(CFLAGS) -DHAVE_CONFIG_H
 SHARE   := -shared -lpthread -o 
