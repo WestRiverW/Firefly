@@ -1,0 +1,70 @@
+﻿// See README.txt for information and build instructions.
+//
+// Note: START and END tags are used in comments to define sections used in
+// tutorials.  They are not part of the syntax for Protocol Buffers.
+//
+// To get an in-depth walkthrough of this file and the related examples, see:
+
+// [START declaration]
+syntax = "proto3";
+package pb;
+
+// [END declaration]
+
+// [START messages]
+
+//package struct
+message MsgBody
+{
+    bytes               Common                  = 1;
+	bytes 				Extra					= 2;
+}
+
+message ServerInfo
+{
+	int32 				MainType				= 1;
+	int32 				ServerID				= 2;
+	string              Ip                   	= 3;
+    int32               Port                   	= 4;
+	int32				MaxConnect				= 5;
+}
+
+message LoginInfo
+{
+    string              Accounts              = 1;
+    string              Password              = 2;
+    string              ClientIP             = 3;
+    string              MachineID            = 4;
+    int32               AccountsType          = 5;
+    int32               ClientKind            = 6;
+    int32               ClientPort             = 7;
+}
+
+message LoginResp
+{
+    int32               UserID                 = 1;
+    int32               GameID                 = 2;
+    string              Accounts             = 3;
+    string              NickName            = 4;
+    int32               FaceID               = 5;
+    int32               Gender               = 6;
+    int64               Score                = 7;
+    int32               AccountsType          = 8;
+    int32               ClientKind            = 9;//Client类型
+}
+
+message RegisterInfo
+{
+    string              Accounts              = 1;
+    string              Password              = 2;
+    string              NickName             = 4;
+    int32               FaceID                = 6;
+    int32               Gender                = 7;
+    string              ClientIP             = 8;
+    string              MachineID            = 9;
+    int32               ChannelID              = 10;
+    int32               AccountsType          = 11;
+    int32               ClientKind            = 12;
+}
+
+// [END messages]

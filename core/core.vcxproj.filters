@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="common">
+      <UniqueIdentifier>{3567d38d-12ae-417d-a793-951e73dd0030}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="data">
+      <UniqueIdentifier>{94fae5d4-5022-4075-b603-0140cae58114}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="external">
+      <UniqueIdentifier>{2b0c0b21-4e1b-4675-a23f-06c49e0ac31e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="net">
+      <UniqueIdentifier>{bf4ac117-ded4-4e89-9f54-976167faedbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils">
+      <UniqueIdentifier>{1a078af5-e797-4dcd-ae86-b5d1cbe19242}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="external\json">
+      <UniqueIdentifier>{00c540ee-bab6-4cee-a92f-9e56473375db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="external\sha1">
+      <UniqueIdentifier>{f2528a1d-e24b-4fcb-86e4-7515c4e03dd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="redis">
+      <UniqueIdentifier>{72af6888-8b6f-45a8-be62-99338e9aef96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lua">
+      <UniqueIdentifier>{83ae22bb-414a-4fe0-97a3-b9d4fcd2dd29}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="external\json\cJSON.cpp">
+      <Filter>external\json</Filter>
+    </ClCompile>
+    <ClCompile Include="external\sha1\SHA1.cpp">
+      <Filter>external\sha1</Filter>
+    </ClCompile>
+    <ClCompile Include="common\AsynEngine.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="common\Bridge.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="common\UserManager.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="data\DBEngine.cpp">
+      <Filter>data</Filter>
+    </ClCompile>
+    <ClCompile Include="net\MsgAssist.cpp">
+      <Filter>net</Filter>
+    </ClCompile>
+    <ClCompile Include="net\MsgClient.cpp">
+      <Filter>net</Filter>
+    </ClCompile>
+    <ClCompile Include="net\MsgServer.cpp">
+      <Filter>net</Filter>
+    </ClCompile>
+    <ClCompile Include="redis\RedisClient.cpp">
+      <Filter>redis</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\AESCipher.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\DataQueue.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\HttpUtility.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\md5.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\StrTool.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\Thread.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\Timer.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\Utility.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\LuaConfig.cpp">
+      <Filter>lua</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="external\json\cJSON.h">
+      <Filter>external\json</Filter>
+    </ClInclude>
+    <ClInclude Include="external\json\cppCJson.h">
+      <Filter>external\json</Filter>
+    </ClInclude>
+    <ClInclude Include="external\sha1\SHA1.h">
+      <Filter>external\sha1</Filter>
+    </ClInclude>
+    <ClInclude Include="common\AsynEngine.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\BaseCore.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\BaseDefine.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\Bridge.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\GameCore.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\UserManager.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="data\DBEngine.h">
+      <Filter>data</Filter>
+    </ClInclude>
+    <ClInclude Include="net\MsgAssist.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="net\MsgClient.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="net\MsgServer.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="redis\RedisClient.h">
+      <Filter>redis</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\AESCipher.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\DataQueue.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\HttpUtility.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\md5.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\StrTool.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\Thread.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\Timer.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\Utility.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\LuaConfig.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
