@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="share">
+      <UniqueIdentifier>{d83c5977-922c-4198-8524-00ad23768516}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="base">
+      <UniqueIdentifier>{878eeec4-f045-44ca-9fe2-a7d4ef965867}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="share\ContactCenter.cpp">
+      <Filter>share</Filter>
+    </ClCompile>
+    <ClCompile Include="base\BridgeBase.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="base\LaunchBase.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="share\ContactCenter.h">
+      <Filter>share</Filter>
+    </ClInclude>
+    <ClInclude Include="share\GameFactory.h">
+      <Filter>share</Filter>
+    </ClInclude>
+    <ClInclude Include="share\ServerCmd.h">
+      <Filter>share</Filter>
+    </ClInclude>
+    <ClInclude Include="base\BridgeBase.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\LaunchBase.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="share\CommonDefine.h">
+      <Filter>share</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
