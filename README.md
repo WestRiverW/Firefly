@@ -116,7 +116,7 @@ Firefly is a game server engine and developed by c++ language,open source,stable
 	5.make
 	6.make install
 ## db
-	Find the 'River.sql' and run it.
+	Find the file of 'River.sql' and run it.
 ## compile
 Compile Firefly engine code that steps is below.
 
