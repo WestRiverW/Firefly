@@ -87,7 +87,7 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(ProjectDir)/../../output/server/$(ProjectName)/bin\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>$(ProjectDir)/../../../output/server/$(ProjectName)/bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)/../../../output/server/$(ProjectName)/obj\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -96,7 +96,7 @@
       <CppLanguageStandard>c++17</CppLanguageStandard>
     </ClCompile>
     <RemotePostBuildEvent>
-      <Command>cp -f ~/projects/server/$(ProjectName)/../../output/server/$(ProjectName)/bin/$(Platform)/$(Configuration)/$(ProjectName)$(TargetExt) /root/projects/lib </Command>
+      <Command>cp -f ~/projects/server/$(ProjectName)/../../../output/server/$(ProjectName)/bin/$(Platform)/$(Configuration)/$(ProjectName)$(TargetExt) /root/projects/lib </Command>
     </RemotePostBuildEvent>
     <Link>
       <AdditionalLibraryDirectories>/usr/local/lib;/usr/local/lib64;/root/projects/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>

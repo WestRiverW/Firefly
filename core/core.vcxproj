@@ -78,8 +78,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <TargetExt>.so</TargetExt>
-    <OutDir>$(ProjectDir)..\output\$(ProjectName)\bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)..\output\$(ProjectName)\obj\$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(ProjectDir)..\..\output\$(ProjectName)\bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)..\..\output\$(ProjectName)\obj\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
     <TargetExt>.so</TargetExt>
@@ -141,7 +141,7 @@
       <AdditionalDependencies>-lglog;-lpthread;-lcurl;-lhiredis;-llua;-ldl;-fPIC;-g;-Wall;-O3;-DHAVE_CONFIG_H;-lmysqlclient;-lprotobuf;-levent;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <RemotePostBuildEvent>
-      <Command>cp -f ~/projects/core/../output/$(ProjectName)/bin/$(Platform)/$(Configuration)/lib$(ProjectName)$(TargetExt) /root/projects/lib </Command>
+      <Command>cp -f ~/projects/core/../../output/$(ProjectName)/bin/$(Platform)/$(Configuration)/lib$(ProjectName)$(TargetExt) /root/projects/lib </Command>
     </RemotePostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">

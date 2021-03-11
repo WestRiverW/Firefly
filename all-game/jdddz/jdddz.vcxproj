@@ -85,7 +85,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <TargetExt>.so</TargetExt>
-    <OutDir>$(ProjectDir)/../../output/all-game/$(ProjectName)/bin\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>$(ProjectDir)/../../../output/all-game/$(ProjectName)/bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)/../../../output/all-game/$(ProjectName)/obj\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -94,7 +94,7 @@
       <AdditionalDependencies>-lglog;-lprotobuf;-lcore;-lpublic;-ldl;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <RemotePostBuildEvent>
-      <Command>cp -f ~/projects/all-game/$(ProjectName)/../../output/all-game/$(ProjectName)/bin/$(Platform)/$(Configuration)/lib$(ProjectName)$(TargetExt) /root/projects/lib </Command>
+      <Command>cp -f ~/projects/all-game/$(ProjectName)/../../../output/all-game/$(ProjectName)/bin/$(Platform)/$(Configuration)/lib$(ProjectName)$(TargetExt) /root/projects/lib </Command>
     </RemotePostBuildEvent>
     <ClCompile>
       <AdditionalIncludeDirectories>../../core;../../public;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
