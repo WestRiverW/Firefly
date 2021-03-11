@@ -1,3 +1,4 @@
+
 Firefly
 ===========================
 Firefly is a game server engine and developed by c++ language,open source,stable and robust.
@@ -27,6 +28,7 @@ Firefly is a game server engine and developed by c++ language,open source,stable
 * [glog](#glog)
 * [protobuf](#protobuf)
 * [libevent](#libevent)
+* [db](#db)
 * [compile](#compile)
 
 ## wget
@@ -113,6 +115,8 @@ Firefly is a game server engine and developed by c++ language,open source,stable
 	4. ./configure
 	5.make
 	6.make install
+## db
+	Find the 'River.sql' and run it.
 ## compile
 Compile Firefly engine code that steps is below.
 
