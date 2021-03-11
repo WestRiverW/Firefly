@@ -122,7 +122,7 @@ Compile Firefly engine code that steps is below.
 	4.make linux
 	5.cp lua.h luaconf.h lauxlib.h lualib.h /usr/local/include
 	6.cp liblua.a /usr/local/lib
-	7.cd server
+	7.cd Firefly
 	8.make
 
 [Top](#firefly)
