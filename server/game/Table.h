@@ -55,7 +55,7 @@ public:
     bool OnTimer( int unTimerID, int unParam );
     bool OnEventSocketGame( MsgHead *pMsgHead, void *pData, int wDataSize, IUserItem *pIUserItem);
     bool OnLoadCfgMessage( void *pData, int wDataSize, IUserItem *pIUserItem );
-    virtual  IMsgClient *GetNetworkClient();
+    virtual  IMsgClient *GetMsgClient();
 
 protected:
     IUserManager             *m_pIServerUserManager;
@@ -65,7 +65,7 @@ protected:
 protected:
     ITableUserAction               *m_pITableUserAction;
 protected:
-    IMsgClient              *m_pINetworkClient;
+    IMsgClient              *m_pIMsgClient;
     ITimer                   *m_pITimer;                
     ITableHook                *m_pITableHook;
     IDataTransition              *m_pIMainServiceFrame;

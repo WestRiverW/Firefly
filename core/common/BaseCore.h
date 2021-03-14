@@ -28,8 +28,8 @@ namespace Firefly
     {
         int                 nUserID;
         int                 nGameID;
-        char                Accounts[32];
-        char                NickName[32];
+        char                Account[32];
+        char                Nickname[32];
     };
     
     struct tagControl
@@ -52,6 +52,12 @@ namespace Firefly
         MsgHead		            MsgHeadInfo;
     };
 
+	struct tagClientLink
+    {
+        int                     nErrorCode;
+        unsigned int            nServerID;
+    };
+	
     struct tagClientRead
     {
         unsigned int            wDataSize;
@@ -63,12 +69,6 @@ namespace Firefly
     {
         unsigned int            nServerID;
         char                    cbShutReason;
-    };
-
-    struct tagClientLink
-    {
-        int                     nErrorCode;
-        unsigned int            nServerID;
     };
 
     struct tagServerAccept
@@ -93,7 +93,7 @@ namespace Firefly
         unsigned int            dwSocketID;
     };
 
-    class CDBResult
+    class FFDBResult
     {
     public:
         int             m_nErrorCode = 0;
@@ -223,13 +223,13 @@ namespace Firefly
         virtual bool SetInfo( const char *szDBAddr, unsigned short wPort, const char *szDBName, const char *szUser, const char *szPassword ) = 0;
 
     public:
-        virtual bool MoveToNext( CDBResult &result ) = 0;
-        virtual bool MoveToNextEx( CDBResult &result ) = 0;
+        virtual bool MoveToNext( FFDBResult &result ) = 0;
+        virtual bool MoveToNextEx( FFDBResult &result ) = 0;
         virtual bool IsRecordsetEnd() = 0;
 	
     public:
-        virtual CDBResult ExecuteProcess( const char *pszSPName ) = 0;
-        virtual CDBResult ExecuteProcessEx( const char *pszSPName ) = 0;
+        virtual FFDBResult ExecuteProcess( const char *pszSPName ) = 0;
+        virtual FFDBResult ExecuteProcessEx( const char *pszSPName ) = 0;
         virtual void ConverToByte( char **pResult, size_t &nResultLen, const char *pSrcData, unsigned int nSrcLen ) = 0;
     };
 

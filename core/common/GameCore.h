@@ -15,8 +15,8 @@ namespace Firefly
     class ITableHook;
     class IDataTransition;
 
-	#define IDI_TABLE_MODULE_START      10000
-	#define IDI_TABLE_MODULE_FINISH     50000
+	#define IDI_TABLE_MODULE_START      1000
+	#define IDI_TABLE_MODULE_FINISH     5000
 
 	#define TIME_TABLE_Hook_RANGE       30
 	#define TIME_TABLE_MODULE_RANGE     50
@@ -68,7 +68,7 @@ namespace Firefly
         virtual bool OnTimer(int unTimerID, int unParam) = 0;
         virtual bool OnEventSocketGame(MsgHead* pMsgHead, void* pData, int wDataSize, IUserItem* pIUserItem) = 0;
         virtual bool OnLoadCfgMessage(void* pData, int wDataSize, IUserItem* pIUserItem) = 0;
-        virtual  IMsgClient* GetNetworkClient() = 0;
+        virtual  IMsgClient* GetMsgClient() = 0;
     };
 
     //////////////////////////////////////////////////////////////////////////////////

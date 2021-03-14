@@ -13,7 +13,6 @@ namespace Firefly
         m_llLastTickCount = 0;
         m_llTimerSpace = 50000;
         m_pTimer = NULL;
-        return;
     }
 
     TimerThread::~TimerThread()
@@ -90,7 +89,6 @@ namespace Firefly
         m_llTimeLeave = NO_TIME_LEAVE;
         m_llTimerSpace = 50000;
         m_pITimerEvent = NULL;
-        return;
     }
 
     Timer::~Timer()
@@ -116,7 +114,6 @@ namespace Firefly
 
         m_TimerItemFree.clear();
         m_TimerItemActive.clear();
-        return;
     }
 
     bool Timer::SetTimer(unsigned int unTimerID, unsigned int dwElapse, unsigned int dwRepeat, unsigned int unParam)
@@ -314,7 +311,5 @@ namespace Firefly
 
             m_llTimeLeave = llTimeLeave;
         }
-
-        return;
     }
 }

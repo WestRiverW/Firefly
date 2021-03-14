@@ -44,7 +44,6 @@ bool BridgeHook::OnTimer( unsigned int unTimerID, unsigned int unMsgID )
     return true;
 }
 
-//数据库事
 bool BridgeHook::OnDataBase( unsigned short wRequestID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
 {
     LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " wRequestID:" << wRequestID ;
@@ -58,7 +57,6 @@ bool BridgeHook::OnDataBase( unsigned short wRequestID, MsgHead *pMsgHead, void 
     return true;
 }
 
-//连接事件
 bool BridgeHook::OnClientLink( unsigned int nServerID, int nErrorCode )
 {
     LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " nServerID:" << nServerID << ",nErrorCode:" << nErrorCode;
@@ -82,14 +80,12 @@ bool BridgeHook::OnClientLink( unsigned int nServerID, int nErrorCode )
     return true;
 }
 
-//关闭事件
 bool BridgeHook::OnClientShut( unsigned int nServerID, char cbShutReason )
 {
     m_pTimer->SetTimer( CONNECT_TIMER, 3, 1, 0 );
     return true;
 }
 
-//读取事件
 bool BridgeHook::OnClientRead( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
 {
     LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " main cmd id:" << pMsgHead->wMainCmdID << ",sub Cmd id:" << pMsgHead->wSubCmdID << ",wDataSize:" << wDataSize;
@@ -107,16 +103,14 @@ bool BridgeHook::OnServerReady()
 
     return true;
 }
-//读取事件
+
 bool BridgeHook::OnServerBind(ServerItem* pServerItem)
 {
     return true;
 }
 
-//读取事件
 bool BridgeHook::OnServerShut( ServerItem *pItem )
 {
-    //清除信息
     LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << "dbshut " << pItem->GetIndex();
 
     if( pItem )
@@ -127,12 +121,11 @@ bool BridgeHook::OnServerShut( ServerItem *pItem )
     return true;
 }
 
-//读取事件
 bool BridgeHook::OnServerRead(ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
 {
     LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << "dbread main id:" << pMsgHead->wMainCmdID << ",sub id:" << pMsgHead->wSubCmdID << ",wDataSize:" << wDataSize;
     
-	//标识是哪个大厅，哪个游戏过来的消息
+	//
 	pMsgHead->wHallGateIndex = pItem->GetSocketID();
 	//m_pIDBEngine->PostDBRequest( pMsgHead->wSubCmdID, pMsgHead, pData, wDataSize );
 	

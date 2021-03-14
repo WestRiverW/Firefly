@@ -60,8 +60,8 @@ public:
     virtual bool OnDBEngineRequest( unsigned short wRequestID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize );
 
 protected:
-    inline void DoMysqlQuery( DataBase *pDataBase, CDBResult &result, std::vector<std::vector<std::string>> &rows, std::vector<std::string> &row, const char *strProcess, const char *strSqlRet );
-    inline void DoMysqlQueryEx( DataBase *pDataBase, CDBResult &result, std::vector<std::vector<std::string>> &rows, std::vector<std::string> &row, const char *strProcess, const char *strSqlRet );
+    inline void DoMysqlQuery( DataBase *pDataBase, FFDBResult &result, std::vector<std::vector<std::string>> &rows, std::vector<std::string> &row, const char *strProcess, const char *strSqlRet );
+    inline void DoMysqlQueryEx( DataBase *pDataBase, FFDBResult &result, std::vector<std::vector<std::string>> &rows, std::vector<std::string> &row, const char *strProcess, const char *strSqlRet );
 
 protected:
     bool OnMobileLogonAccounts( MsgHead *pMsgHead, void *pData, unsigned int wDataSize );

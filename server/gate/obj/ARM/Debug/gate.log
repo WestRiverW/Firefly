@@ -1,0 +1,23 @@
+﻿  正在清理远程项目目录
+  正在验证源
+  正在将源远程复制到“192.168.1.90”
+  正在验证体系结构
+  正在验证体系结构
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Microsoft\VC\v160\Application Type\Linux\1.0\Linux.targets(190,5): warning : 当前项目体系结构“ARM”不兼容远程系统体系结构“x64”(“x64”)。请在 Configuration Manager 中将项目体系结构切换为“x64”。如果正在交叉编译，可以忽略此警告。
+  正在启动远程生成
+  正在编译源:
+  BridgeHook.cpp
+F:\Project\Firefly\server\gate\BridgeHook.cpp(5,10): error : net/MsgAssist.h: No such file or directory
+F:\Project\Firefly\server\gate\BridgeHook.cpp(5,10): error :  #include <net/MsgAssist.h>
+F:\Project\Firefly\server\gate\BridgeHook.cpp(5,10): error :           ^~~~~~~~~~~~~~~~~
+F:\Project\Firefly\server\gate\BridgeHook.cpp(5,10): error : compilation terminated.
+  Launch.cpp
+F:\Project\Firefly\server\gate\Launch.h(13,10): error : base/LaunchBase.h: No such file or directory
+F:\Project\Firefly\server\gate\Launch.h(13,10): error :  #include <base/LaunchBase.h>
+F:\Project\Firefly\server\gate\Launch.h(13,10): error :           ^~~~~~~~~~~~~~~~~~~
+F:\Project\Firefly\server\gate\Launch.h(13,10): error : compilation terminated.
+  main.cpp
+F:\Project\Firefly\server\gate\Launch.h(13,10): error : base/LaunchBase.h: No such file or directory
+F:\Project\Firefly\server\gate\Launch.h(13,10): error :  #include <base/LaunchBase.h>
+F:\Project\Firefly\server\gate\Launch.h(13,10): error :           ^~~~~~~~~~~~~~~~~~~
+F:\Project\Firefly\server\gate\Launch.h(13,10): error : compilation terminated.

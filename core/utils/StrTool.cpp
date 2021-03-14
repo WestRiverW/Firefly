@@ -94,5 +94,4 @@ namespace strtool
         strftime( sysdate, sizeof( sysdate ), strFormat.c_str(), today );
         return sysdate;
     }
-
 }

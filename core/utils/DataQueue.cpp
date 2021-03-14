@@ -116,8 +116,6 @@ namespace Firefly
             delete m_pDataQueueBuffer;
             m_pDataQueueBuffer = nullptr;
         }
-
-        return;
     }
 
     bool DataQueue::RectifyBuffer(unsigned int dwNeedSize)

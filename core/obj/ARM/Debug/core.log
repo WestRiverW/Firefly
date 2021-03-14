@@ -1,0 +1,113 @@
+﻿  正在清理远程项目目录
+  正在验证源
+  正在将源远程复制到“192.168.1.90”
+  正在验证体系结构
+  正在验证体系结构
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Microsoft\VC\v160\Application Type\Linux\1.0\Linux.targets(190,5): warning : 当前项目体系结构“ARM”不兼容远程系统体系结构“x64”(“x64”)。请在 Configuration Manager 中将项目体系结构切换为“x64”。如果正在交叉编译，可以忽略此警告。
+  正在启动远程生成
+  正在编译源:
+  AsynEngine.cpp
+F:\Project\Firefly\core\common\AsynEngine.h(16,10): error : utils/Thread.h: No such file or directory
+F:\Project\Firefly\core\common\AsynEngine.h(16,10): error :  #include <utils/Thread.h>
+F:\Project\Firefly\core\common\AsynEngine.h(16,10): error :           ^~~~~~~~~~~~~~~~
+F:\Project\Firefly\core\common\AsynEngine.h(16,10): error : compilation terminated.
+  Bridge.cpp
+F:\Project\Firefly\core\common\Bridge.cpp(4,10): error : net/MsgClient.h: No such file or directory
+F:\Project\Firefly\core\common\Bridge.cpp(4,10): error :  #include <net/MsgClient.h>
+F:\Project\Firefly\core\common\Bridge.cpp(4,10): error :           ^~~~~~~~~~~~~~~~~
+F:\Project\Firefly\core\common\Bridge.cpp(4,10): error : compilation terminated.
+  UserManager.cpp
+F:\Project\Firefly\core\common\BaseCore.h(16,10): error : utils/DataQueue.h: No such file or directory
+F:\Project\Firefly\core\common\BaseCore.h(16,10): error :  #include <utils/DataQueue.h>
+F:\Project\Firefly\core\common\BaseCore.h(16,10): error :           ^~~~~~~~~~~~~~~~~~~
+F:\Project\Firefly\core\common\BaseCore.h(16,10): error : compilation terminated.
+  DBEngine.cpp
+F:\Project\Firefly\core\data\DBEngine.h(16,10): error : mysql.h: No such file or directory
+F:\Project\Firefly\core\data\DBEngine.h(16,10): error :  #include <mysql.h>
+F:\Project\Firefly\core\data\DBEngine.h(16,10): error :           ^~~~~~~~~
+F:\Project\Firefly\core\data\DBEngine.h(16,10): error : compilation terminated.
+  cJSON.cpp
+F:\Project\Firefly\core\external\json\cJSON.cpp(297,55): warning : conversion from ‘unsigned int’ to ‘char’ may change value [-Wconversion]
+F:\Project\Firefly\core\external\json\cJSON.cpp(297,55): warning :                              *--ptr2 = ( ( uc | 0x80 ) & 0xBF );
+F:\Project\Firefly\core\external\json\cJSON.cpp(297,55): warning :                                        ~~~~~~~~~~~~~~~~^~~~~~~~
+F:\Project\Firefly\core\external\json\cJSON.cpp(301,55): warning : conversion from ‘unsigned int’ to ‘char’ may change value [-Wconversion]
+F:\Project\Firefly\core\external\json\cJSON.cpp(301,55): warning :                              *--ptr2 = ( ( uc | 0x80 ) & 0xBF );
+F:\Project\Firefly\core\external\json\cJSON.cpp(301,55): warning :                                        ~~~~~~~~~~~~~~~~^~~~~~~~
+F:\Project\Firefly\core\external\json\cJSON.cpp(305,55): warning : conversion from ‘unsigned int’ to ‘char’ may change value [-Wconversion]
+F:\Project\Firefly\core\external\json\cJSON.cpp(305,55): warning :                              *--ptr2 = ( ( uc | 0x80 ) & 0xBF );
+F:\Project\Firefly\core\external\json\cJSON.cpp(305,55): warning :                                        ~~~~~~~~~~~~~~~~^~~~~~~~
+F:\Project\Firefly\core\external\json\cJSON.cpp(309,44): warning : conversion from ‘unsigned int’ to ‘char’ may change value [-Wconversion]
+F:\Project\Firefly\core\external\json\cJSON.cpp(309,44): warning :                              *--ptr2 = ( uc | firstByteMark[len] );
+F:\Project\Firefly\core\external\json\cJSON.cpp(309,44): warning :                                        ~~~~~^~~~~~~~~~~~~~~~~~~~~~
+F:\Project\Firefly\core\external\json\cJSON.cpp(651,23): warning : conversion from ‘size_t’ {aka ‘long unsigned int’} to ‘int’ may change value [-Wconversion]
+F:\Project\Firefly\core\external\json\cJSON.cpp(830,30): warning : conversion from ‘size_t’ {aka ‘long unsigned int’} to ‘int’ may change value [-Wconversion]
+  SHA1.cpp
+F:\Project\Firefly\core\external\sha1\SHA1.cpp(42): warning : ignoring #pragma warning  [-Wunknown-pragmas]
+F:\Project\Firefly\core\external\sha1\SHA1.cpp(42): warning :  #pragma warning(push)
+F:\Project\Firefly\core\external\sha1\SHA1.cpp(44): warning : ignoring #pragma warning  [-Wunknown-pragmas]
+F:\Project\Firefly\core\external\sha1\SHA1.cpp(256): warning : ignoring #pragma warning  [-Wunknown-pragmas]
+F:\Project\Firefly\core\external\sha1\SHA1.cpp(256): warning :  #pragma warning(pop)
+  LuaConfig.cpp
+  MsgAssist.cpp
+F:\Project\Firefly\core\net\MsgAssist.h(14,10): error : common/BaseDefine.h: No such file or directory
+F:\Project\Firefly\core\net\MsgAssist.h(14,10): error :  #include <common/BaseDefine.h>
+F:\Project\Firefly\core\net\MsgAssist.h(14,10): error :           ^~~~~~~~~~~~~~~~~~~~~
+F:\Project\Firefly\core\net\MsgAssist.h(14,10): error : compilation terminated.
+  MsgClient.cpp
+F:\Project\Firefly\core\net\MsgClient.h(17,10): error : utils/Thread.h: No such file or directory
+F:\Project\Firefly\core\net\MsgClient.h(17,10): error :  #include <utils/Thread.h>
+F:\Project\Firefly\core\net\MsgClient.h(17,10): error :           ^~~~~~~~~~~~~~~~
+F:\Project\Firefly\core\net\MsgClient.h(17,10): error : compilation terminated.
+  MsgServer.cpp
+F:\Project\Firefly\core\net\MsgServer.h(15,10): error : utils/Thread.h: No such file or directory
+F:\Project\Firefly\core\net\MsgServer.h(15,10): error :  #include <utils/Thread.h>
+F:\Project\Firefly\core\net\MsgServer.h(15,10): error :           ^~~~~~~~~~~~~~~~
+F:\Project\Firefly\core\net\MsgServer.h(15,10): error : compilation terminated.
+  RedisClient.cpp
+  AESCipher.cpp
+F:\Project\Firefly\core\utils\AESCipher.cpp(86,29): warning : conversion from ‘int’ to ‘unsigned char’ may change value [-Wconversion]
+F:\Project\Firefly\core\utils\AESCipher.cpp(86,29): warning :          return ( ( x << 1 ) ^ ( ( ( x >> 7 ) & 1 ) * 0x1b ) );
+F:\Project\Firefly\core\utils\AESCipher.cpp(86,29): warning :                 ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+F:\Project\Firefly\core\utils\AESCipher.cpp(94,68): warning : conversion from ‘int’ to ‘unsigned char’ may change value [-Wconversion]
+F:\Project\Firefly\core\utils\AESCipher.cpp(94,68): warning :          return ( ( ( y & 1 ) * x ) ^
+F:\Project\Firefly\core\utils\AESCipher.cpp(94,68): warning :                 ~~~~~~~~~~~~~~~~~~~~~
+F:\Project\Firefly\core\utils\AESCipher.cpp(94,68): warning :                   ( ( y >> 1 & 1 ) * xtime( x ) ) ^
+F:\Project\Firefly\core\utils\AESCipher.cpp(94,68): warning :                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+F:\Project\Firefly\core\utils\AESCipher.cpp(94,68): warning :                   ( ( y >> 2 & 1 ) * xtime( xtime( x ) ) ) ^
+F:\Project\Firefly\core\utils\AESCipher.cpp(94,68): warning :                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+F:\Project\Firefly\core\utils\AESCipher.cpp(94,68): warning :                   ( ( y >> 3 & 1 ) * xtime( xtime( xtime( x ) ) ) ) ^
+F:\Project\Firefly\core\utils\AESCipher.cpp(94,68): warning :                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+F:\Project\Firefly\core\utils\AESCipher.cpp(94,68): warning :                   ( ( y >> 4 & 1 ) * xtime( xtime( xtime( xtime( x ) ) ) ) ) );
+F:\Project\Firefly\core\utils\AESCipher.cpp(94,68): warning :                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+F:\Project\Firefly\core\utils\AESCipher.cpp(211,58): warning : conversion from ‘unsigned int’ to ‘unsigned char’ may change value [-Wconversion]
+  DataQueue.cpp
+F:\Project\Firefly\core\utils\DataQueue.cpp(38,44): warning : conversion from ‘long unsigned int’ to ‘unsigned int’ may change value [-Wconversion]
+F:\Project\Firefly\core\utils\DataQueue.cpp(38,44): warning :          if (RectifyBuffer(sizeof(DataHead) + DataHead.wDataSize) == false)
+F:\Project\Firefly\core\utils\DataQueue.cpp(38,44): warning :                            ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+F:\Project\Firefly\core\utils\DataQueue.cpp(54,26): warning : conversion from ‘long unsigned int’ to ‘unsigned int’ may change value [-Wconversion]
+F:\Project\Firefly\core\utils\DataQueue.cpp(54,26): warning :              m_dwDataSize += sizeof(DataHead) + wDataSize;
+F:\Project\Firefly\core\utils\DataQueue.cpp(54,26): warning :              ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+F:\Project\Firefly\core\utils\DataQueue.cpp(55,27): warning : conversion from ‘long unsigned int’ to ‘unsigned int’ may change value [-Wconversion]
+F:\Project\Firefly\core\utils\DataQueue.cpp(55,27): warning :              m_dwInsertPos += sizeof(DataHead) + wDataSize;
+F:\Project\Firefly\core\utils\DataQueue.cpp(55,27): warning :              ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+F:\Project\Firefly\core\utils\DataQueue.cpp(86,53): warning : conversion from ‘long unsigned int’ to ‘unsigned int’ may change value [-Wconversion]
+F:\Project\Firefly\core\utils\DataQueue.cpp(86,53): warning :          unsigned int wPacketSize = sizeof(DataHead) + pDataHead->wDataSize;
+F:\Project\Firefly\core\utils\DataQueue.cpp(86,53): warning :                                     ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+F:\Project\Firefly\core\utils\DataQueue.cpp(138,51): warning : conversion from ‘long int’ to ‘unsigned int’ may change value [-Wconversion]
+  HttpUtility.cpp
+  md5.cpp
+  StrTool.cpp
+F:\Project\Firefly\core\utils\StrTool.cpp(62,25): warning : conversion from ‘std::vector<std::__cxx11::basic_string<char> >::size_type’ {aka ‘long unsigned int’} to ‘int’ may change value [-Wconversion]
+F:\Project\Firefly\core\utils\StrTool.cpp(62,25): warning :          return ret_.size();
+F:\Project\Firefly\core\utils\StrTool.cpp(62,25): warning :                 ~~~~~~~~~^~
+  Thread.cpp
+  Timer.cpp
+F:\Project\Firefly\core\utils\Timer.h(15,10): error : common/BaseCore.h: No such file or directory
+F:\Project\Firefly\core\utils\Timer.h(15,10): error :  #include <common/BaseCore.h>
+F:\Project\Firefly\core\utils\Timer.h(15,10): error :           ^~~~~~~~~~~~~~~~~~~
+F:\Project\Firefly\core\utils\Timer.h(15,10): error : compilation terminated.
+  Utility.cpp
+F:\Project\Firefly\core\utils\Utility.cpp(8,10): error : external/sha1/SHA1.h: No such file or directory
+F:\Project\Firefly\core\utils\Utility.cpp(8,10): error :  #include <external/sha1/SHA1.h>
+F:\Project\Firefly\core\utils\Utility.cpp(8,10): error :           ^~~~~~~~~~~~~~~~~~~~~~
+F:\Project\Firefly\core\utils\Utility.cpp(8,10): error : compilation terminated.

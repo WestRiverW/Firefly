@@ -72,7 +72,7 @@ namespace Firefly
         : m_hSocket(INVALID_SOCKET),
         m_ClientStatus(SOCKET_IDLE),
         m_wIndex(wIndex),
-        m_pINetworkClient(pIMsgClient)
+        m_pIMsgClient(pIMsgClient)
     {
         m_wRountID = 1;
         m_dwServerID = 0;
@@ -139,7 +139,7 @@ namespace Firefly
     bool ClientItem::OnConnectCompleted()
     {
         int nErrorCode = errno;
-        m_pINetworkClient->OnClientLink(m_dwServerID, nErrorCode);
+        m_pIMsgClient->OnClientLink(m_dwServerID, nErrorCode);
 
         if (nErrorCode != 0)
         {
@@ -254,7 +254,7 @@ namespace Firefly
                     int nPacketSize = MsgAssist::MSG_HEAD_LENGTH + nBodyLen;
                     if (pMsgHead->wMainCmdID != CMD_CORE_BASE)
                     {
-                        m_pINetworkClient->OnClientRead(pMsgHead, (void*)(m_cbRecvBuf + nHandSize + MsgAssist::MSG_HEAD_LENGTH), nBodyLen);
+                        m_pIMsgClient->OnClientRead(pMsgHead, (void*)(m_cbRecvBuf + nHandSize + MsgAssist::MSG_HEAD_LENGTH), nBodyLen);
                     }
                     else
                     {
@@ -288,7 +288,7 @@ namespace Firefly
     bool ClientItem::OnCloseCompleted()
     {
         LOG(INFO) << strThreadLogFlag << __FUNCTION__ << " 1";
-        m_pINetworkClient->OnClientShut(m_dwServerID, 0);
+        m_pIMsgClient->OnClientShut(m_dwServerID, 0);
         LOG(INFO) << strThreadLogFlag << __FUNCTION__ << " 2";
         ResetData();
         LOG(INFO) << strThreadLogFlag << __FUNCTION__ << " 3";
@@ -340,7 +340,7 @@ namespace Firefly
                 SetNoBlock(m_hSocket);
                 m_dwClientIP = SocketAddr.sin_addr.s_addr;
                 m_wPort = SocketAddr.sin_port;
-                m_pINetworkClient->OnClientLink(m_dwServerID, 0);
+                m_pIMsgClient->OnClientLink(m_dwServerID, 0);
                 m_ClientStatus = SOCKET_CONNECT;
                 nErrorCode = AddSocketToEPoll(epollfd);
 
@@ -574,23 +574,23 @@ namespace Firefly
 
     //////////////////////////////////////////////////////////////////////////
 
-    NetworkClientThread::NetworkClientThread()
+    MsgClientThread::MsgClientThread()
         : m_nEPollfd(0),
         m_pIMsgClient(NULL)
     {
     }
 
-    NetworkClientThread::~NetworkClientThread()
+    MsgClientThread::~MsgClientThread()
     {
     }
 
-    std::string NetworkClientThread::GetThreadFlag()
+    std::string MsgClientThread::GetThreadFlag()
     {
         std::string data = "[CliServiceThread] ";
         return data;
     }
 
-    bool NetworkClientThread::PostRequest(unsigned short wIdentifier, void* const pBuffer, unsigned int wDataSize)
+    bool MsgClientThread::PostRequest(unsigned short wIdentifier, void* const pBuffer, unsigned int wDataSize)
     {
         std::unique_lock<std::mutex> ThreadLock(m_mutDataQueue);
         m_DataQueue.InsertData(wIdentifier, pBuffer, wDataSize);
@@ -598,12 +598,12 @@ namespace Firefly
         return true;
     }
 
-    bool NetworkClientThread::OnStrat()
+    bool MsgClientThread::OnStrat()
     {
         return true;
     }
 
-    bool NetworkClientThread::OnStop()
+    bool MsgClientThread::OnStop()
     {
         LOG(INFO) << strThreadLogFlag << __FUNCTION__;
         std::unique_lock<std::mutex> ThreadLock(m_mutDataQueue);
@@ -611,7 +611,7 @@ namespace Firefly
         return true;
     }
 
-    bool NetworkClientThread::OnRun()
+    bool MsgClientThread::OnRun()
     {
         std::unique_lock <std::mutex> lck(m_mutService);
         m_condService.wait(lck);
@@ -619,7 +619,7 @@ namespace Firefly
         return true;
     }
 
-    unsigned int NetworkClientThread::OnServiceRequest()
+    unsigned int MsgClientThread::OnServiceRequest()
     {
         do
         {
@@ -742,12 +742,12 @@ namespace Firefly
         }
 
         m_ClientRWThread.SetEpoll(m_nEPollfd);
-        m_NetworkClientThread.SetEpoll(m_nEPollfd);
-        m_ClientRWThread.SetNetworkClient(this);
-        m_NetworkClientThread.SetNetworkClient(this);
+        m_MsgClientThread.SetEpoll(m_nEPollfd);
+        m_ClientRWThread.SetMsgClient(this);
+        m_MsgClientThread.SetMsgClient(this);
 
         if (m_ClientRWThread.StartThread() == false) return false;
-        if (m_NetworkClientThread.StartThread() == false) return false;
+        if (m_MsgClientThread.StartThread() == false) return false;
 
         m_bService = true;
         return true;
@@ -758,7 +758,7 @@ namespace Firefly
         m_bService = false;
         close(m_nEPollfd);
         m_nEPollfd = 0;
-        m_NetworkClientThread.StopThread();
+        m_MsgClientThread.StopThread();
         m_ClientRWThread.StopThread();
         return true;
     }
@@ -788,7 +788,7 @@ namespace Firefly
         ConnectRequest.dwServerID = dwServerID;
         ConnectRequest.wPort = wPort;
         ConnectRequest.dwServerIP = htonl(dwServerIP);
-        return m_NetworkClientThread.PostRequest(REQUEST_CONNECT, &ConnectRequest, sizeof(ConnectRequest));
+        return m_MsgClientThread.PostRequest(REQUEST_CONNECT, &ConnectRequest, sizeof(ConnectRequest));
     }
 
     bool MsgClient::Connect(unsigned int dwServerID, const char* szServerIP, unsigned short wPort)
@@ -801,7 +801,7 @@ namespace Firefly
         ConnectRequest.dwServerID = dwServerID;
         ConnectRequest.wPort = wPort;
         ConnectRequest.dwServerIP = Utility::TranslateAddress(szServerIP);
-        return m_NetworkClientThread.PostRequest(REQUEST_CONNECT, &ConnectRequest, sizeof(ConnectRequest));
+        return m_MsgClientThread.PostRequest(REQUEST_CONNECT, &ConnectRequest, sizeof(ConnectRequest));
     }
 
     bool MsgClient::SendData(unsigned int dwServerID, MsgHead* pMsgHead)
@@ -813,7 +813,7 @@ namespace Firefly
         memset(&SendDataRequest, 0, sizeof(SendDataRequest));
         SendDataRequest.dwServerID = dwServerID;
         SendDataRequest.MsgHeadInfo = *pMsgHead;
-        return m_NetworkClientThread.PostRequest(REQUEST_SEND_DATA, &SendDataRequest, sizeof(SendDataRequest));
+        return m_MsgClientThread.PostRequest(REQUEST_SEND_DATA, &SendDataRequest, sizeof(SendDataRequest));
     }
 
     bool MsgClient::SendData(unsigned int dwServerID, MsgHead* pMsgHead, void* pData, unsigned int wDataSize)
@@ -833,7 +833,7 @@ namespace Firefly
         }
 
         unsigned int wSendSize = sizeof(SendRequestEx) - sizeof(SendRequestEx.cbSendBuffer) + wDataSize;
-        return m_NetworkClientThread.PostRequest(REQUEST_SEND_DATA_EX, &SendRequestEx, wSendSize);
+        return m_MsgClientThread.PostRequest(REQUEST_SEND_DATA_EX, &SendRequestEx, wSendSize);
     }
 
     bool MsgClient::CloseSocket(unsigned int dwServerID)
@@ -845,7 +845,7 @@ namespace Firefly
         tagCloseDataRequest CloseDataRequest;
         memset(&CloseDataRequest, 0, sizeof(CloseDataRequest));
         CloseDataRequest.dwServerID = dwServerID;
-        return m_NetworkClientThread.PostRequest(REQUEST_CLOSE_SOCKET, &CloseDataRequest, sizeof(CloseDataRequest));
+        return m_MsgClientThread.PostRequest(REQUEST_CLOSE_SOCKET, &CloseDataRequest, sizeof(CloseDataRequest));
     }
 
     bool MsgClient::OnClientLink(unsigned int dwServerID, int nErrorCode)

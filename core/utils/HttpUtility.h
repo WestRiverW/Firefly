@@ -30,8 +30,6 @@ public:
     std::vector<CURL *>   m_curl;
     int m_nConnectTimeout;
     int m_nTimeout;
-
-
 };
 
 #endif

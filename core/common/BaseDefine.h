@@ -33,9 +33,10 @@ namespace Firefly
 	#define MSG_CONTROL               0x0002
 	#define MSG_DATABASE              0x0003
 
-	#define MSG_CLIENT_READ       0x0004
-	#define MSG_CLIENT_SHUT       0x0005
-	#define MSG_CLIENT_LINK       0x0006
+	#define MSG_CLIENT_LINK       0x0004
+	#define MSG_CLIENT_READ       0x0005
+	#define MSG_CLIENT_SHUT       0x0006
+	
 
 	#define MSG_SERVER_ACCEPT    0x0007
 	#define MSG_SERVER_READ      0x0008

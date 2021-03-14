@@ -41,7 +41,7 @@ namespace Firefly
         virtual std::string GetAccounts()
         {
             std::string  szAccounts;
-            szAccounts.assign(m_UserInfo.Accounts, strlen(m_UserInfo.Accounts));
+            //szAccounts.assign(m_UserInfo.Accounts, strlen(m_UserInfo.Accounts));
             return szAccounts;
         }
 

@@ -23,29 +23,29 @@ namespace Firefly
     class ServerItem;
     class MsgServer;
 
-    enum enOperationType
+    enum eMsgType
     {
-        enOperationType_Send,
-        enOperationType_Recv,
+        eMsgType_Send,
+        eMsgType_Recv,
     };
 
-    class COverLapped
+    class FFMsgServer
     {
     public:
-        const enOperationType       m_OperationType;
+        const eMsgType       m_eMsgType;
 
     public:
-        COverLapped(enOperationType OperationType);
-        virtual ~COverLapped();
+        FFMsgServer(eMsgType msgType);
+        virtual ~FFMsgServer();
 
     public:
-        enOperationType GetOperationType()
+        eMsgType GetMsgType()
         {
-            return m_OperationType;
+            return m_eMsgType;
         }
     };
 
-    class COverLappedSend : public COverLapped
+    class FFMsgServerSend : public FFMsgServer
     {
     public:
         unsigned char   m_cbBuffer[SOCKET_BUFFER_LEN];
@@ -53,15 +53,15 @@ namespace Firefly
         unsigned int    m_wTail;
 
     public:
-        COverLappedSend();
-        virtual ~COverLappedSend();
+        FFMsgServerSend();
+        virtual ~FFMsgServerSend();
 
     public:
         void clear();
         unsigned int length() const;
     };
 
-    typedef std::vector<COverLappedSend*>  COverLappedSendPtr;
+    typedef std::vector<FFMsgServerSend*>  FFMsgServerSendPtr;
 
     class IServerItemHook : public FFObject
     {
@@ -203,12 +203,12 @@ namespace Firefly
         inline void SetClientIpStr(sockaddr_in* pclientaddr);
         bool SendData(MsgHead* pMsgHead);
         bool SendData(MsgHead* pMsgHead, unsigned char* pData, unsigned short wDataSize);
-        int SendData(COverLappedSend* pOverLappedSend);
+        int SendData(FFMsgServerSend* pMsgServerSend);
         bool CloseSocket(unsigned short wRountID);
 
     protected:
-        inline COverLappedSend* GetSendOverLapped(unsigned int wPacketSize);
-        void RestoreOverLapped(COverLappedSend* pOverLappedSend);
+        inline FFMsgServerSend* GetSendBuffer(unsigned int wPacketSize);
+        void ResetSendBuffer(FFMsgServerSend* pMsgServerSend);
 
     protected:
         inline bool IsAllowSendData()
@@ -251,8 +251,8 @@ namespace Firefly
         IServerItemHook* m_pIServerItemHook;
 
     protected:
-        COverLappedSendPtr    m_OverLappedSendActive;
-        COverLappedSendPtr    m_OverLappedSendFree;
+        FFMsgServerSendPtr    m_MsgSendActive;
+        FFMsgServerSendPtr    m_MsgSendFree;
 
     protected:
         unsigned int          m_dwSendTickCount;
@@ -308,9 +308,9 @@ namespace Firefly
         virtual bool OnAsynEngineData(unsigned short wIdentifier, void* pData, unsigned int wDataSize);
 
     protected:
-        ServerItem* ActiveNetworkItem();
-        ServerItem* GetNetworkItem(unsigned short wIndex);
-        bool FreeNetworkItem(ServerItem* pServerItem);
+        ServerItem* ActiveServerItem();
+        ServerItem* GetServerItem(unsigned short wIndex);
+        bool FreeServerItem(ServerItem* pServerItem);
 
     private:
         bool DetectSocket();
@@ -324,10 +324,10 @@ namespace Firefly
 
     protected:
         std::mutex          m_ItemLocked;
-        ServerItemList  m_NetworkItemFree;
-        ServerItemList  m_NetworkItemActive;
-        ServerItemList  m_NetworkItemStore;
-        ServerItemList  m_TempNetworkItemArray;
+        ServerItemList  m_ServerItemFree;
+        ServerItemList  m_ServerItemActive;
+        ServerItemList  m_ServerItemStore;
+        ServerItemList  m_TempServerItemArray;
 
     protected:
         std::mutex                      m_BufferLocked;

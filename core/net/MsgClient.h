@@ -7,8 +7,8 @@
 *   Author:
 *   All rights reserved.
 */
-#ifndef __NetworkClient_H__
-#define __NetworkClient_H__
+#ifndef __MsgClient_H__
+#define __MsgClient_H__
 
 #include <vector>
 #include <mutex>
@@ -55,7 +55,7 @@ namespace Firefly
         unsigned short      m_wIndex;
         unsigned short      m_wRountID;
         unsigned int        m_dwServerID;
-        IMsgClient* m_pINetworkClient;
+        IMsgClient 			*m_pIMsgClient;
         std::mutex          m_mutClientItem;
 
     public:
@@ -94,9 +94,9 @@ namespace Firefly
         {
             m_nEPollfd = epoll;
         }
-        void SetNetworkClient(MsgClient* pNetworkClient)
+        void SetMsgClient(MsgClient* pMsgClient)
         {
-            m_pIMsgClient = pNetworkClient;
+            m_pIMsgClient = pMsgClient;
         }
 
         std::string GetThreadFlag();
@@ -111,9 +111,9 @@ namespace Firefly
     };
 
     //Connect、SendData、Close
-    class NetworkClientThread : public Thread
+    class MsgClientThread : public Thread
     {
-        friend class CNetworkClient;
+        friend class MsgClient;
     protected:
         DataQueue                 m_DataQueue;
         std::mutex                  m_mutDataQueue;
@@ -125,17 +125,17 @@ namespace Firefly
         MsgClient* m_pIMsgClient;
 
     public:
-        NetworkClientThread();
-        virtual ~NetworkClientThread();
+        MsgClientThread();
+        virtual ~MsgClientThread();
 
     public:
         void SetEpoll(int epoll)
         {
             m_nEPollfd = epoll;
         }
-        void SetNetworkClient(MsgClient* pNetworkClient)
+        void SetMsgClient(MsgClient* pMsgClient)
         {
-            m_pIMsgClient = pNetworkClient;
+            m_pIMsgClient = pMsgClient;
         }
         std::string GetThreadFlag();
     public:
@@ -166,7 +166,7 @@ namespace Firefly
         CClientItemPtrArray  m_SocketItemStore;
 
         ClientRWThread       m_ClientRWThread;
-        NetworkClientThread  m_NetworkClientThread;
+        MsgClientThread  m_MsgClientThread;
 
     public:
         MsgClient();

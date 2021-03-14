@@ -32,13 +32,13 @@ namespace Firefly
         virtual void Close();
         virtual bool SetInfo(const char* szDBAddr, unsigned short wPort, const char* szDBName, const char* szUser, const char* szPassword);
 
-        virtual bool MoveToNext(CDBResult& result);
-        virtual bool MoveToNextEx(CDBResult& result);
+        virtual bool MoveToNext(FFDBResult& result);
+        virtual bool MoveToNextEx(FFDBResult& result);
         virtual bool IsRecordsetEnd();
 
     public:
-        virtual CDBResult ExecuteProcess(const char* pszSPName);
-        virtual CDBResult ExecuteProcessEx(const char* pszSPName);
+        virtual FFDBResult ExecuteProcess(const char* pszSPName);
+        virtual FFDBResult ExecuteProcessEx(const char* pszSPName);
         std::vector<std::vector<std::string>>& GetResultRow();
         void ConverToByte(char** pResult, size_t& nResultLen, const char* pSrcData, unsigned int nSrcLen);
         void PingDataBase();

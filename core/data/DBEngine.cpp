@@ -72,9 +72,9 @@ namespace Firefly
         return true;
     }
 
-    CDBResult DataBase::ExecuteProcess(const char* pszSPName)
+    FFDBResult DataBase::ExecuteProcess(const char* pszSPName)
     {
-        CDBResult result;
+        FFDBResult result;
         m_nRowLen = 0;
         LOG(INFO) << strThreadLogFlag << __FUNCTION__ << " sql:" << pszSPName;
         //int mysql_query(MYSQL *mysql, const char *stmt_str)
@@ -123,9 +123,9 @@ namespace Firefly
 
 
 
-    CDBResult DataBase::ExecuteProcessEx(const char* pszSPName)
+    FFDBResult DataBase::ExecuteProcessEx(const char* pszSPName)
     {
-        CDBResult result;
+        FFDBResult result;
         m_nRowLen = 0;
         LOG(INFO) << strThreadLogFlag << __FUNCTION__ << " sql:" << pszSPName;
         int len = strlen(pszSPName);
@@ -177,7 +177,7 @@ namespace Firefly
     }
 
     //
-    bool DataBase::MoveToNext(CDBResult& result)
+    bool DataBase::MoveToNext(FFDBResult& result)
     {
         int nRowIndex = m_vecResult.size();
         //A MYSQL_ROW structure for the next row.
@@ -217,7 +217,7 @@ namespace Firefly
 
 
 
-    bool DataBase::MoveToNextEx(CDBResult& result)
+    bool DataBase::MoveToNextEx(FFDBResult& result)
     {
         int nRowIndex = m_vecResult.size();
         m_MySQLRow = mysql_fetch_row(m_pMySQLRes);

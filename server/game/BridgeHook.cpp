@@ -236,24 +236,24 @@ bool BridgeHook::OnServerRead(ServerItem *pItem, MsgHead *pMsgHead, void *pData,
     {
         case CMD_HALL_BASE:
         {
-            return OnSubNetworkHallMsg( pMsgHead, pData, wDataSize );
+            return OnSubServerHallMsg( pMsgHead, pData, wDataSize );
         }
 
         case CMD_GAME_BASE:
         {
-            return OnSubNetworkGameMsg( pMsgHead, pData, wDataSize );
+            return OnSubServerGameMsg( pMsgHead, pData, wDataSize );
         }
     }
 
     return true;
 }
 
-bool BridgeHook::OnSubNetworkHallMsg( MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool BridgeHook::OnSubServerHallMsg( MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
 {
     return true;
 }
 
-bool BridgeHook::OnSubNetworkGameMsg( MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool BridgeHook::OnSubServerGameMsg( MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
 {
     return true;
 }

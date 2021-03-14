@@ -55,8 +55,8 @@ public:
     bool SendData( MsgHead *pMsgHead, void *pData, int wDataSize );
 
 protected:
-    bool OnSubNetworkHallMsg( MsgHead *pMsgHead, void *pData, unsigned int wDataSize );
-    bool OnSubNetworkGameMsg( MsgHead *pMsgHead, void *pData, unsigned int wDataSize );
+    bool OnSubServerHallMsg( MsgHead *pMsgHead, void *pData, unsigned int wDataSize );
+    bool OnSubServerGameMsg( MsgHead *pMsgHead, void *pData, unsigned int wDataSize );
 
 public:
     bool OnClientCenterRegResp( void *pData, unsigned int wDataSize );

@@ -64,7 +64,7 @@ bool DBEngineHook::OnDBEngineRequest( unsigned short wRequestID, MsgHead *pMsgHe
     return true;
 }
 
-inline void DBEngineHook::DoMysqlQuery( DataBase *pDataBase, CDBResult &result, std::vector<std::vector<std::string>> &rows, std::vector<std::string> &row, const char *strProcess, const char *strSqlRet )
+inline void DBEngineHook::DoMysqlQuery( DataBase *pDataBase, FFDBResult &result, std::vector<std::vector<std::string>> &rows, std::vector<std::string> &row, const char *strProcess, const char *strSqlRet )
 {
     LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " process sql:" << strProcess;
     result = pDataBase->ExecuteProcess( strProcess );
@@ -100,7 +100,7 @@ inline void DBEngineHook::DoMysqlQuery( DataBase *pDataBase, CDBResult &result, 
     LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " errno:" << result.m_nErrorCode << ",errorMsg:" << result.m_strErrorMsg << " row size:" << row.size();
 }
 
-inline void DBEngineHook::DoMysqlQueryEx( DataBase *pDataBase, CDBResult &result, std::vector<std::vector<std::string>> &rows, std::vector<std::string> &row, const char *strProcess, const char *strSqlRet )
+inline void DBEngineHook::DoMysqlQueryEx( DataBase *pDataBase, FFDBResult &result, std::vector<std::vector<std::string>> &rows, std::vector<std::string> &row, const char *strProcess, const char *strSqlRet )
 {
     LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " process sql:" << strProcess;
     result = pDataBase->ExecuteProcessEx( strProcess );
