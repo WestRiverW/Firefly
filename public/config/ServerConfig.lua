@@ -15,8 +15,8 @@ ParameterTable =
 	-- 子游戏列表
 	subGame= 
 	{
-		"../lib/libfzffc.so",
-		"../lib/libagzrty.so"
+		"../lib/libjdddz.so",
+		"../lib/libhzmj.so"
 	}
 }
 
