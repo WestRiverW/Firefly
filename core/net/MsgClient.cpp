@@ -872,15 +872,15 @@ namespace Firefly
         std::unique_lock<std::mutex> ThreadLock(m_ItemLocked);
         ClientItem* pClientItem = NULL;
 
-        if (m_SocketItemFree.size() > 0)
+        if (m_ClientItemFree.size() > 0)
         {
-            pClientItem = *(m_SocketItemFree.begin());
-            m_SocketItemFree.erase(m_SocketItemFree.begin());
-            m_SocketItemActive.push_back(pClientItem);
+            pClientItem = *(m_ClientItemFree.begin());
+            m_ClientItemFree.erase(m_ClientItemFree.begin());
+            m_ClientItemActive.push_back(pClientItem);
         }
         else
         {
-            unsigned short wStoreCount = m_SocketItemStore.size();
+            unsigned short wStoreCount = m_ClientItemStore.size();
 
             if (wStoreCount < m_wMaxConnect)
             {
@@ -894,8 +894,8 @@ namespace Firefly
                         return NULL;
                     }
 
-                    m_SocketItemActive.push_back(pClientItem);
-                    m_SocketItemStore.push_back(pClientItem);
+                    m_ClientItemActive.push_back(pClientItem);
+                    m_ClientItemStore.push_back(pClientItem);
                 }
                 catch (...)
                 {
@@ -912,13 +912,13 @@ namespace Firefly
     {
         std::unique_lock<std::mutex> ThreadLock(m_ItemLocked);
         ClientItem* pClientItem = NULL;
-        int nActiveCount = m_SocketItemActive.size();
+        int nActiveCount = m_ClientItemActive.size();
 
         for (int i = 0; i < nActiveCount; ++i)
         {
-            if (m_SocketItemActive.at(i)->m_dwServerID == dwServerID)
+            if (m_ClientItemActive.at(i)->m_dwServerID == dwServerID)
             {
-                pClientItem = m_SocketItemActive.at(i);
+                pClientItem = m_ClientItemActive.at(i);
                 break;
             }
         }
@@ -929,17 +929,17 @@ namespace Firefly
     bool MsgClient::FreeSocketItem(unsigned int dwServerID)
     {
         std::unique_lock<std::mutex> ThreadLock(m_ItemLocked);
-        auto iterEnd = m_SocketItemActive.end();
+        auto iterEnd = m_ClientItemActive.end();
         ClientItem* pClientItem = NULL;
 
-        for (auto iter = m_SocketItemActive.begin(); iter != iterEnd; ++iter)
+        for (auto iter = m_ClientItemActive.begin(); iter != iterEnd; ++iter)
         {
             pClientItem = *iter;
 
             if (pClientItem->m_dwServerID == dwServerID)
             {
-                m_SocketItemActive.erase(iter);
-                m_SocketItemFree.push_back(pClientItem);
+                m_ClientItemActive.erase(iter);
+                m_ClientItemFree.push_back(pClientItem);
                 return true;
             }
         }

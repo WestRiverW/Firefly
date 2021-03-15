@@ -161,9 +161,9 @@ namespace Firefly
     protected:
         unsigned short          m_wMaxConnect;
         std::mutex              m_ItemLocked;
-        CClientItemPtrArray  m_SocketItemFree;
-        CClientItemPtrArray  m_SocketItemActive;
-        CClientItemPtrArray  m_SocketItemStore;
+        CClientItemPtrArray  m_ClientItemFree;
+        CClientItemPtrArray  m_ClientItemActive;
+        CClientItemPtrArray  m_ClientItemStore;
 
         ClientRWThread       m_ClientRWThread;
         MsgClientThread  m_MsgClientThread;
