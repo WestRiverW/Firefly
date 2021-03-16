@@ -37,12 +37,12 @@ bool BridgeBase::OnBridgeStop( FFObject *pObject )
     return true;
 }
 
-bool BridgeBase::OnEventControl( unsigned short wIdentifier, void *pData, unsigned int wDataSize )
+bool BridgeBase::OnEventControl( unsigned short wIdentifier, void *pData, unsigned int nDataSize )
 {
     return true;
 }
 
-bool BridgeBase::OnBridgeData( unsigned short wRequestID, void *pData, unsigned int wDataSize )
+bool BridgeBase::OnBridgeData( unsigned short wRequestID, void *pData, unsigned int nDataSize )
 {
     return true;
 }
@@ -70,7 +70,7 @@ bool BridgeBase::OnTimer( unsigned int unTimerID, unsigned int unMsgID )
     return false;
 }
 
-bool BridgeBase::OnDataBase( unsigned short wRequestID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool BridgeBase::OnDataBase( unsigned short wRequestID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
     return true;
 }
@@ -89,7 +89,7 @@ bool BridgeBase::OnClientShut( unsigned int nServerID, char cbShutReason )
     return true;
 }
 
-bool BridgeBase::OnClientRead( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool BridgeBase::OnClientRead( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
     return true;
 }
@@ -109,7 +109,7 @@ bool BridgeBase::OnServerShut( ServerItem *pItem  )
     return true;
 }
 
-bool BridgeBase::OnServerRead( ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool BridgeBase::OnServerRead( ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
     return true;
 }

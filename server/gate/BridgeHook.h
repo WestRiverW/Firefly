@@ -30,31 +30,31 @@ public:
     virtual ~BridgeHook();
 	
 public:
-    virtual bool OnEventControl( unsigned short wIdentifier, void *pData, unsigned int wDataSize );
+    virtual bool OnEventControl( unsigned short wIdentifier, void *pData, unsigned int nDataSize );
 	
 public:
     virtual bool OnTimer( unsigned int unTimerID, unsigned int unMsgID );
-    virtual bool OnDataBase( unsigned short wRequestID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize );
+    virtual bool OnDataBase( unsigned short wRequestID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize );
 	
 public:
     virtual bool OnClientLink( unsigned int nServerID, int nErrorCode );
     virtual bool OnClientShut( unsigned int nServerID, char cbShutReason );
-    virtual bool OnClientRead( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize );
+    virtual bool OnClientRead( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize );
 
 protected:
-    virtual bool OnClientCenterMessage( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize );
-    virtual bool OnClientHallMessage( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize );
-    virtual bool OnClientGameMessage( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize );
+    virtual bool OnClientCenterMessage( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize );
+    virtual bool OnClientHallMessage( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize );
+    virtual bool OnClientGameMessage( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize );
 
 protected:
-    virtual bool OnClientPullCfgResp( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize );
-    virtual bool OnClientCenterRegResp( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize );
+    virtual bool OnClientPullCfgResp( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize );
+    virtual bool OnClientCenterRegResp( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize );
 
 public:
     virtual bool OnServerReady();
     virtual bool OnServerBind( unsigned int dwSocketID, unsigned int dwClientAddr );
     virtual bool OnServerShut( ServerItem *pItem );
-    virtual bool OnServerRead( ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int wDataSize );
+    virtual bool OnServerRead( ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int nDataSize );
 
 protected:
     std::map<int, ServerItem*>   m_mapSeq2NetItem;

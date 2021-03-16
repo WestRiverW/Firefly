@@ -70,9 +70,11 @@ namespace Firefly
 	{
 		unsigned short			wMainCmdID;
 		unsigned short			wSubCmdID;
-		unsigned short			wGateIndex;
-		unsigned short			wHallGateIndex;
 		unsigned int 			nBodyLen;
+		int						nCRC;
+		unsigned int			nUserID;
+		unsigned short			wGateIndex;
+		unsigned short			wHallGameIndex;
 		unsigned int			nSocketID;
 	};
 

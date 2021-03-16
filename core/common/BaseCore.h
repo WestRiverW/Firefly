@@ -60,7 +60,7 @@ namespace Firefly
 	
     struct tagClientRead
     {
-        unsigned int            wDataSize;
+        unsigned int            nDataSize;
         unsigned int            nServerID;
         MsgHead		            MsgHeadInfo;
     };
@@ -78,7 +78,7 @@ namespace Firefly
 
     struct tagServerRead
     {
-        unsigned int            wDataSize;
+        unsigned int            nDataSize;
         MsgHead             	MsgHeadInfo;
 	    void                   	*pData;
     };
@@ -143,23 +143,23 @@ namespace Firefly
         virtual bool OnBridgeStop( FFObject *pObject ) = 0;
 
     public:
-        virtual bool OnEventControl( unsigned short wIdentifier, void *pData, unsigned int wDataSize ) = 0;
-        virtual bool OnBridgeData( unsigned short wRequestID, void *pData, unsigned int wDataSize ) = 0;
+        virtual bool OnEventControl( unsigned short wIdentifier, void *pData, unsigned int nDataSize ) = 0;
+        virtual bool OnBridgeData( unsigned short wRequestID, void *pData, unsigned int nDataSize ) = 0;
 
     public:
         virtual bool OnTimer( unsigned int unTimerID, unsigned int unMsgID ) = 0;
-        virtual bool OnDataBase( unsigned short wRequestID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize ) = 0;
+        virtual bool OnDataBase( unsigned short wRequestID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize ) = 0;
 
     public:
         virtual bool OnClientLink( unsigned int nSocketID, int nErrorCode ) = 0;
         virtual bool OnClientShut( unsigned int nSocketID, char cbShutReason ) = 0;
-        virtual bool OnClientRead( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize ) = 0;
+        virtual bool OnClientRead( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize ) = 0;
 
     public:
         virtual bool OnServerReady() = 0;
         virtual bool OnServerBind( ServerItem *pItem ) = 0;
         virtual bool OnServerShut( ServerItem *pItem ) = 0;
-        virtual bool OnServerRead( ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int wDataSize ) = 0;
+        virtual bool OnServerRead( ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int nDataSize ) = 0;
     };
 
     class IServer : public FFObject
@@ -168,7 +168,7 @@ namespace Firefly
         virtual bool OnServerReady() = 0;
         virtual bool OnServerBind( ServerItem *pItem ) = 0;
         virtual bool OnServerShut( ServerItem *pServerItem ) = 0;
-        virtual bool OnServerRead( ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int wDataSize ) = 0;
+        virtual bool OnServerRead( ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int nDataSize ) = 0;
     };
     class IMsgServer;
     class IBridgeHook;
@@ -192,8 +192,8 @@ namespace Firefly
 
     public:
 	    virtual bool SendData( MsgHead *pMsgHead ) = 0;
-        virtual bool SendData( MsgHead *pMsgHead, void *pData, unsigned int wDataSize ) = 0;
-        virtual bool SendDataEx( void *pData = NULL, unsigned int wDataSize = 0 ){return true;}
+        virtual bool SendData( MsgHead *pMsgHead, void *pData, unsigned int nDataSize ) = 0;
+        virtual bool SendDataEx( void *pData = NULL, unsigned int nDataSize = 0 ){return true;}
 
     public:
         virtual bool CloseSocket( unsigned int dwSocketID ) = 0;
@@ -204,7 +204,7 @@ namespace Firefly
     {
     public:
         virtual bool SetAsynHook( FFObject *pObject ) = 0;
-        virtual bool PostAsynData( unsigned short wIdentifier, void *pData, unsigned int wDataSize ) = 0;
+        virtual bool PostAsynData( unsigned short wIdentifier, void *pData, unsigned int nDataSize ) = 0;
     };
 
     class IAsynEngineHook : public FFObject
@@ -212,7 +212,7 @@ namespace Firefly
     public:
         virtual bool OnAsynEngineStart() = 0;
         virtual bool OnAsynEngineStop() = 0;
-        virtual bool OnAsynEngineData( unsigned short wIdentifier, void *pData, unsigned int wDataSize ) = 0;
+        virtual bool OnAsynEngineData( unsigned short wIdentifier, void *pData, unsigned int nDataSize ) = 0;
     };
 
     class IDataBase : public FFObject
@@ -240,8 +240,8 @@ namespace Firefly
         virtual bool SetDBEngineHook( IDBEngineHook *pObject, unsigned short wHookCount ) = 0;
 
     public:
-        virtual bool PostDBControl( unsigned short wControlID, void *pData, unsigned int wDataSize ) = 0;
-        virtual bool PostDBRequest( unsigned short wRequestID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize ) = 0;
+        virtual bool PostDBControl( unsigned short wControlID, void *pData, unsigned int nDataSize ) = 0;
+        virtual bool PostDBRequest( unsigned short wRequestID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize ) = 0;
     };
 
     class IDBEngineHook : public FFObject
@@ -252,8 +252,8 @@ namespace Firefly
 
     public:
         virtual bool OnDBEngineTimer( unsigned int unTimerID, unsigned int unParam ) = 0;
-        virtual bool OnDBEngineControl( unsigned short wControlID, void *pData, unsigned int wDataSize ) = 0;
-        virtual bool OnDBEngineRequest( unsigned short wRequestID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize ) = 0;
+        virtual bool OnDBEngineControl( unsigned short wControlID, void *pData, unsigned int nDataSize ) = 0;
+        virtual bool OnDBEngineRequest( unsigned short wRequestID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize ) = 0;
     };
 
     class ITimerEvent : public FFObject
@@ -267,7 +267,7 @@ namespace Firefly
     public:
         virtual bool OnClientLink( unsigned int nSocketID, int nErrorCode ) = 0;
         virtual bool OnClientShut( unsigned int nSocketID, char cbShutReason ) = 0;
-        virtual bool OnClientRead( MsgHead *pMsgHead, void *pData, unsigned int wDataSize ) = 0;
+        virtual bool OnClientRead( MsgHead *pMsgHead, void *pData, unsigned int nDataSize ) = 0;
     };
 
     class ITimer : public IServiceModule
@@ -287,20 +287,20 @@ namespace Firefly
     public:
         virtual bool OnClientLink( unsigned int dwServerID, int nErrorCode ) = 0;
         virtual bool OnClientShut( unsigned int dwServerID, char cbShutReason ) = 0;
-        virtual bool OnClientRead( MsgHead *pMsgHead, void *pData, unsigned int wDataSize ) = 0;
+        virtual bool OnClientRead( MsgHead *pMsgHead, void *pData, unsigned int nDataSize ) = 0;
 
     public:
         virtual bool CloseSocket( unsigned int dwServerID ) = 0;
         virtual bool Connect( unsigned int dwServerID, unsigned int dwServerIP, unsigned short wPort ) = 0;
         virtual bool Connect( unsigned int dwServerID, const char *szServerIP, unsigned short wPort ) = 0;
         virtual bool SendData( unsigned int dwServerID, MsgHead *pMsgHead ) = 0;
-        virtual bool SendData( unsigned int dwServerID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize ) = 0;
+        virtual bool SendData( unsigned int dwServerID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize ) = 0;
     };
 
     class IDBEngineEvent : public FFObject
     {
     public:
-        virtual bool OnDBResult( unsigned short wRequestID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize ) = 0;
+        virtual bool OnDBResult( unsigned short wRequestID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize ) = 0;
     };
 
 }

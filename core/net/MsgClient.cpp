@@ -45,7 +45,7 @@ namespace Firefly
     {
         unsigned int            dwServerID;
         MsgHead					MsgHeadInfo;
-        unsigned int            wDataSize;
+        unsigned int            nDataSize;
         char                    cbSendBuffer[SOCKET_BODY_LEN];
     };
 
@@ -378,7 +378,7 @@ namespace Firefly
         return SendBuffer(cbDataBuffer, nPacketSize);
     }
 
-    bool ClientItem::SendData(MsgHead* pMsgHead, void* pData, unsigned int wDataSize)
+    bool ClientItem::SendData(MsgHead* pMsgHead, void* pData, unsigned int nDataSize)
     {
         assert(m_hSocket != INVALID_SOCKET);
         assert(m_ClientStatus == SOCKET_CONNECT);
@@ -388,7 +388,7 @@ namespace Firefly
 
         char cbDataBuffer[SOCKET_BUFFER_LEN] = { 0 };
         int nPacketSize = 0;
-        MsgAssist::encode(pMsgHead, pData, wDataSize, cbDataBuffer, nPacketSize);
+        MsgAssist::encode(pMsgHead, pData, nDataSize, cbDataBuffer, nPacketSize);
         auto nSize = SendBuffer(cbDataBuffer, nPacketSize);
         return nSize;
     }
@@ -442,13 +442,13 @@ namespace Firefly
         }
     }
 
-    void ClientItem::AmortizeBuffer(void* pData, unsigned int wDataSize)
+    void ClientItem::AmortizeBuffer(void* pData, unsigned int nDataSize)
     {
-        if ((m_dwBufferData + wDataSize) > m_dwBufferSize)
+        if ((m_dwBufferData + nDataSize) > m_dwBufferSize)
         {
             char* pcbDataBuffer = NULL;
             char* pcbDeleteBuffer = m_pcbDataBuffer;
-            unsigned int dwNeedSize = m_dwBufferData + wDataSize;
+            unsigned int dwNeedSize = m_dwBufferData + nDataSize;
             unsigned int dwApplySize = std::max(dwNeedSize, m_dwBufferSize * 2);
 
             try
@@ -471,8 +471,8 @@ namespace Firefly
         }
 
         m_bNeedBuffer = true;
-        m_dwBufferData += wDataSize;
-        memcpy(m_pcbDataBuffer + m_dwBufferData - wDataSize, pData, wDataSize);
+        m_dwBufferData += nDataSize;
+        memcpy(m_pcbDataBuffer + m_dwBufferData - nDataSize, pData, nDataSize);
         return;
     }
 
@@ -590,10 +590,10 @@ namespace Firefly
         return data;
     }
 
-    bool MsgClientThread::PostRequest(unsigned short wIdentifier, void* const pBuffer, unsigned int wDataSize)
+    bool MsgClientThread::PostRequest(unsigned short wIdentifier, void* const pBuffer, unsigned int nDataSize)
     {
         std::unique_lock<std::mutex> ThreadLock(m_mutDataQueue);
-        m_DataQueue.InsertData(wIdentifier, pBuffer, wDataSize);
+        m_DataQueue.InsertData(wIdentifier, pBuffer, nDataSize);
         m_condService.notify_one();
         return true;
     }
@@ -640,7 +640,7 @@ namespace Firefly
             {
             case REQUEST_CONNECT:
             {
-                assert(DataHead.wDataSize == sizeof(tagConnectRequest));
+                assert(DataHead.nDataSize == sizeof(tagConnectRequest));
                 tagConnectRequest* pConnectRequest = (tagConnectRequest*)cbBuffer;
                 ClientItem* pClientItem = m_pIMsgClient->GetSocketItem(pConnectRequest->dwServerID);
 
@@ -662,7 +662,7 @@ namespace Firefly
 
             case REQUEST_SEND_DATA:
             {
-                assert(DataHead.wDataSize == sizeof(tagSendDataRequest));
+                assert(DataHead.nDataSize == sizeof(tagSendDataRequest));
                 tagSendDataRequest* pSendDataRequest = (tagSendDataRequest*)cbBuffer;
                 ClientItem* pClientItem = m_pIMsgClient->GetSocketItem(pSendDataRequest->dwServerID);
 
@@ -679,15 +679,15 @@ namespace Firefly
             {
                 LOG(INFO) << strThreadLogFlag << __FUNCTION__ << "  clientsenddataex: 1";
                 tagSendDataExRequest* pSendDataExRequest = (tagSendDataExRequest*)cbBuffer;
-                assert(DataHead.wDataSize >= (sizeof(tagSendDataExRequest) - sizeof(pSendDataExRequest->cbSendBuffer)));
-                assert(DataHead.wDataSize == (pSendDataExRequest->wDataSize + sizeof(tagSendDataExRequest) - sizeof(pSendDataExRequest->cbSendBuffer)));
+                assert(DataHead.nDataSize >= (sizeof(tagSendDataExRequest) - sizeof(pSendDataExRequest->cbSendBuffer)));
+                assert(DataHead.nDataSize == (pSendDataExRequest->nDataSize + sizeof(tagSendDataExRequest) - sizeof(pSendDataExRequest->cbSendBuffer)));
                 ClientItem* pClientItem = m_pIMsgClient->GetSocketItem(pSendDataExRequest->dwServerID);
                 LOG(INFO) << strThreadLogFlag << __FUNCTION__ << "  clientsenddataex: 2 " << pSendDataExRequest->dwServerID;
                 if (pClientItem)
                 {
                     LOG(INFO) << strThreadLogFlag << __FUNCTION__ << "  clientsenddataex: 3 ";
                     std::unique_lock<std::mutex> ThreadLock(pClientItem->GetCriticalSection());
-                    pClientItem->SendData(&(pSendDataExRequest->MsgHeadInfo), pSendDataExRequest->cbSendBuffer, pSendDataExRequest->wDataSize);
+                    pClientItem->SendData(&(pSendDataExRequest->MsgHeadInfo), pSendDataExRequest->cbSendBuffer, pSendDataExRequest->nDataSize);
                 }
                 LOG(INFO) << strThreadLogFlag << __FUNCTION__ << "  clientsenddataex: 4 ";
                 break;
@@ -816,7 +816,7 @@ namespace Firefly
         return m_MsgClientThread.PostRequest(REQUEST_SEND_DATA, &SendDataRequest, sizeof(SendDataRequest));
     }
 
-    bool MsgClient::SendData(unsigned int dwServerID, MsgHead* pMsgHead, void* pData, unsigned int wDataSize)
+    bool MsgClient::SendData(unsigned int dwServerID, MsgHead* pMsgHead, void* pData, unsigned int nDataSize)
     {
         assert(m_bService == true);
         if (m_bService == false) return false;
@@ -824,15 +824,15 @@ namespace Firefly
         memset(&SendRequestEx, 0, sizeof(SendRequestEx));
         SendRequestEx.dwServerID = dwServerID;
         SendRequestEx.MsgHeadInfo = *pMsgHead;
-        SendRequestEx.wDataSize = wDataSize;
+        SendRequestEx.nDataSize = nDataSize;
 
-        if (wDataSize > 0)
+        if (nDataSize > 0)
         {
             assert(pData != NULL);
-            memcpy(SendRequestEx.cbSendBuffer, pData, wDataSize);
+            memcpy(SendRequestEx.cbSendBuffer, pData, nDataSize);
         }
 
-        unsigned int wSendSize = sizeof(SendRequestEx) - sizeof(SendRequestEx.cbSendBuffer) + wDataSize;
+        unsigned int wSendSize = sizeof(SendRequestEx) - sizeof(SendRequestEx.cbSendBuffer) + nDataSize;
         return m_MsgClientThread.PostRequest(REQUEST_SEND_DATA_EX, &SendRequestEx, wSendSize);
     }
 
@@ -861,10 +861,10 @@ namespace Firefly
         return m_pIClientEvent->OnClientShut(dwServerID, cbShutReason);
     }
 
-    bool MsgClient::OnClientRead(MsgHead* pMsgHead, void* pData, unsigned int wDataSize)
+    bool MsgClient::OnClientRead(MsgHead* pMsgHead, void* pData, unsigned int nDataSize)
     {
         assert(m_pIClientEvent != NULL);
-        return m_pIClientEvent->OnClientRead(pMsgHead, pData, wDataSize);
+        return m_pIClientEvent->OnClientRead(pMsgHead, pData, nDataSize);
     }
 
     ClientItem* MsgClient::ActiveSocketItem()

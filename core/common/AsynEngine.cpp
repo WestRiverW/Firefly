@@ -82,7 +82,7 @@ namespace Firefly
 
             try
             {
-                m_pIAsynEngineHook->OnAsynEngineData( DataHead.wIdentifier, m_cbBuffer, DataHead.wDataSize );
+                m_pIAsynEngineHook->OnAsynEngineData( DataHead.wIdentifier, m_cbBuffer, DataHead.nDataSize );
             }
             catch( ... )
             {
@@ -140,20 +140,20 @@ namespace Firefly
         return true;
     }
 
-    bool AsynEngine::PostAsynData( unsigned short wIdentifier, void *pData, unsigned int wDataSize )
+    bool AsynEngine::PostAsynData( unsigned short wIdentifier, void *pData, unsigned int nDataSize )
     {
         assert( ( m_bService == true ) );
         if( m_bService == false ) return false;
 
         std::unique_lock<std::mutex> ThreadLock( m_CriticalSection );
-        if( m_DataQueue.InsertData( wIdentifier, pData, wDataSize ) == false )
+        if( m_DataQueue.InsertData( wIdentifier, pData, nDataSize ) == false )
         {
             assert( false );
             return false;
         }
 
         m_condAsync.notify_one();
-        LOG_IF( INFO, 6 != wIdentifier ) << strThreadLogFlag << __FUNCTION__ << ",wIdentifier:" << wIdentifier << ",wDataSize:" << wDataSize << ",size:" << m_DataQueue.Size() << ",this:" << this;
+        LOG_IF( INFO, 6 != wIdentifier ) << strThreadLogFlag << __FUNCTION__ << ",wIdentifier:" << wIdentifier << ",nDataSize:" << nDataSize << ",size:" << m_DataQueue.Size() << ",this:" << this;
         return true;
     }
 }

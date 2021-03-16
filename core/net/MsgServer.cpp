@@ -42,7 +42,7 @@ namespace Firefly
     struct tagSendDataRequest
     {
         MsgHead					MsgHeadInfo;
-        unsigned int            wDataSize;
+        unsigned int            nDataSize;
         unsigned char           cbSendBuffer[SOCKET_BODY_LEN];
     };
 
@@ -765,24 +765,24 @@ namespace Firefly
         return true;
     }
 
-    bool ServerItem::SendData( MsgHead *pMsgHead, unsigned char* pData,unsigned short wDataSize)
+    bool ServerItem::SendData( MsgHead *pMsgHead, unsigned char* pData,unsigned short nDataSize)
     {
 	    unsigned short wRountID = Utility::LOWORD(pMsgHead->nSocketID);
-        assert( wDataSize <= SOCKET_BODY_LEN );
+        assert( nDataSize <= SOCKET_BODY_LEN );
 
-        if( wDataSize > SOCKET_BODY_LEN ) return false;
+        if( nDataSize > SOCKET_BODY_LEN ) return false;
 	
-	    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << "SendDataTest 1:"<<wDataSize;
+	    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << "SendDataTest 1:"<<nDataSize;
 
         if( !IsValidSocket() )
         {
-		    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << "SendDataTest 2:"<<wDataSize;
+		    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << "SendDataTest 2:"<<nDataSize;
             CloseSocket( wRountID );
             return false;
         }
-	    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << "SendDataTest 3:"<<wDataSize;
+	    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << "SendDataTest 3:"<<nDataSize;
 
-        unsigned int wPacketHead = sizeof( MsgHead ) + wDataSize;
+        unsigned int wPacketHead = sizeof( MsgHead ) + nDataSize;
         FFMsgServerSend *pMsgServerSend = GetSendBuffer( wPacketHead );
 
         if( pMsgServerSend == NULL )
@@ -795,22 +795,22 @@ namespace Firefly
         unsigned int wSourceLen = pMsgServerSend->m_wTail;
         if( m_enConnectType == eConnectType_WebSocket )
         {
-		    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << "SendDataTest 4:"<<wDataSize;
+		    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << "SendDataTest 4:"<<nDataSize;
 		
             unsigned int nLen = 0;
             char *pJsonData = ( char * )( pMsgServerSend->m_cbBuffer + wSourceLen );
 
-            if( wDataSize > 0 )
+            if( nDataSize > 0 )
             {
                 assert( pData != NULL );
-                Utility::WSEncodeFrame( ( char * )pData + MsgAssist::MSG_HEAD_LENGTH, wDataSize - MsgAssist::MSG_HEAD_LENGTH, pJsonData, nLen, enWSBinaryFrame );
+                Utility::WSEncodeFrame( ( char * )pData + MsgAssist::MSG_HEAD_LENGTH, nDataSize - MsgAssist::MSG_HEAD_LENGTH, pJsonData, nLen, enWSBinaryFrame );
             }
 
             pMsgServerSend->m_wTail += nLen;
         }
         else
         {
-		    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << "SendDataTest 5:"<<wDataSize;
+		    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << "SendDataTest 5:"<<nDataSize;
             //probuffer data have been format into data
             char *buffer = ( char * )( pMsgServerSend->m_cbBuffer + wSourceLen );
 		
@@ -818,9 +818,9 @@ namespace Firefly
             pMsgServerSend->m_wTail += MsgAssist::MSG_HEAD_LENGTH;
 
             assert( pData != NULL );
-            memcpy( buffer + MsgAssist::MSG_HEAD_LENGTH, pData, wDataSize );
+            memcpy( buffer + MsgAssist::MSG_HEAD_LENGTH, pData, nDataSize );
 
-            pMsgServerSend->m_wTail += wDataSize;
+            pMsgServerSend->m_wTail += nDataSize;
         }
 
         int nRet = SendData( pMsgServerSend );
@@ -832,7 +832,7 @@ namespace Firefly
             return false;
         }
 	
-	    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << "SendDataTest 6:"<<wDataSize << "  "<<nRet;
+	    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << "SendDataTest 6:"<<nDataSize << "  "<<nRet;
 
         return true;
     }
@@ -1007,49 +1007,49 @@ namespace Firefly
     {
         std::unique_lock <std::mutex> lck( m_BufferLocked );
         tagSendDataRequest *pSendDataRequest = ( tagSendDataRequest * )m_cbBuffer;
-        pSendDataRequest->wDataSize = 0;
+        pSendDataRequest->nDataSize = 0;
         pSendDataRequest->MsgHeadInfo = *pMsgHead;
         unsigned short wSendSize = sizeof( tagSendDataRequest ) - sizeof( pSendDataRequest->cbSendBuffer );
         //protobuffer start
         return m_AsynEngine.PostAsynData( Asyn_SEND_DATA, m_cbBuffer, wSendSize );
     }
 
-    bool MsgServer::SendData( MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+    bool MsgServer::SendData( MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
     {
-        assert( ( wDataSize + sizeof( MsgHead ) ) <= SOCKET_BODY_LEN );
-        if( ( wDataSize + sizeof( MsgHead ) ) > SOCKET_BODY_LEN ) return false;
+        assert( ( nDataSize + sizeof( MsgHead ) ) <= SOCKET_BODY_LEN );
+        if( ( nDataSize + sizeof( MsgHead ) ) > SOCKET_BODY_LEN ) return false;
 
         std::unique_lock <std::mutex> lck( m_BufferLocked );
         tagSendDataRequest *pSendDataRequest = ( tagSendDataRequest * )m_cbBuffer;
-        pSendDataRequest->wDataSize = wDataSize;
+        pSendDataRequest->nDataSize = nDataSize;
         pSendDataRequest->MsgHeadInfo = *pMsgHead;
-        unsigned int wSendSize = sizeof( tagSendDataRequest ) - sizeof( pSendDataRequest->cbSendBuffer ) + wDataSize;
+        unsigned int wSendSize = sizeof( tagSendDataRequest ) - sizeof( pSendDataRequest->cbSendBuffer ) + nDataSize;
 
-        if( wDataSize > 0 )
+        if( nDataSize > 0 )
         {
             assert( pData != NULL );
-            memcpy( pSendDataRequest->cbSendBuffer, pData, wDataSize );
+            memcpy( pSendDataRequest->cbSendBuffer, pData, nDataSize );
         }
 
         //end
         return m_AsynEngine.PostAsynData( Asyn_SEND_DATA, m_cbBuffer, wSendSize );
     }
 
-    bool MsgServer::SendDataEx( MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+    bool MsgServer::SendDataEx( MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
     {
-        assert( ( wDataSize + sizeof( MsgHead ) ) <= SOCKET_BODY_LEN );
-        if( ( wDataSize + sizeof( MsgHead ) ) > SOCKET_BODY_LEN ) return false;
+        assert( ( nDataSize + sizeof( MsgHead ) ) <= SOCKET_BODY_LEN );
+        if( ( nDataSize + sizeof( MsgHead ) ) > SOCKET_BODY_LEN ) return false;
 
         std::unique_lock <std::mutex> lck( m_BufferLocked );
         tagSendDataRequest *pSendDataRequest = ( tagSendDataRequest * )m_cbBuffer;
-        pSendDataRequest->wDataSize = wDataSize;
+        pSendDataRequest->nDataSize = nDataSize;
         pSendDataRequest->MsgHeadInfo = *pMsgHead;
-        unsigned int wSendSize = sizeof( tagSendDataRequest ) - sizeof( pSendDataRequest->cbSendBuffer ) + wDataSize;
+        unsigned int wSendSize = sizeof( tagSendDataRequest ) - sizeof( pSendDataRequest->cbSendBuffer ) + nDataSize;
 
-        if( pData && wDataSize > 0 )
+        if( pData && nDataSize > 0 )
         {
             assert( pData != NULL );
-            memcpy( pSendDataRequest->cbSendBuffer, pData, wDataSize );
+            memcpy( pSendDataRequest->cbSendBuffer, pData, nDataSize );
         }
 
         return m_AsynEngine.PostAsynData( Asyn_SEND_BATCH, m_cbBuffer, wSendSize );
@@ -1088,10 +1088,10 @@ namespace Firefly
         return true;
     }
 
-    bool MsgServer::OnServerRead( ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+    bool MsgServer::OnServerRead( ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
     {
         assert( m_pIServerEvent != NULL );
-        m_pIServerEvent->OnServerRead( pItem, pMsgHead, pData, wDataSize );
+        m_pIServerEvent->OnServerRead( pItem, pMsgHead, pData, nDataSize );
         return true;
     }
 
@@ -1120,15 +1120,15 @@ namespace Firefly
         return true;
     }
 
-    bool MsgServer::OnAsynEngineData( unsigned short wIdentifier, void *pData, unsigned int wDataSize )
+    bool MsgServer::OnAsynEngineData( unsigned short wIdentifier, void *pData, unsigned int nDataSize )
     {
         switch( wIdentifier )
         {
             case Asyn_SEND_DATA:
             {
                 tagSendDataRequest *pSendDataRequest = ( tagSendDataRequest * )pData;
-                assert( wDataSize >= ( sizeof( tagSendDataRequest ) - sizeof( pSendDataRequest->cbSendBuffer ) ) );
-                assert( wDataSize == ( pSendDataRequest->wDataSize + sizeof( tagSendDataRequest ) - sizeof( pSendDataRequest->cbSendBuffer ) ) );
+                assert( nDataSize >= ( sizeof( tagSendDataRequest ) - sizeof( pSendDataRequest->cbSendBuffer ) ) );
+                assert( nDataSize == ( pSendDataRequest->nDataSize + sizeof( tagSendDataRequest ) - sizeof( pSendDataRequest->cbSendBuffer ) ) );
 
 			    unsigned short wIndex = Utility::HIWORD(pSendDataRequest->MsgHeadInfo.nSocketID);
                 ServerItem *pServerItem = GetServerItem( wIndex );
@@ -1137,21 +1137,21 @@ namespace Firefly
 
                 std::unique_lock <std::mutex> lck( pServerItem->GetCriticalSection() );
                 pServerItem->SendData( &(pSendDataRequest->MsgHeadInfo), \
-                                           pSendDataRequest->cbSendBuffer, pSendDataRequest->wDataSize);
+                                           pSendDataRequest->cbSendBuffer, pSendDataRequest->nDataSize);
                 return true;
             }
 
             case Asyn_SEND_BATCH:
             {
                 tagSendDataRequest *pSendDataRequest = ( tagSendDataRequest * )pData;
-                assert( wDataSize >= ( sizeof( tagSendDataRequest ) - sizeof( pSendDataRequest->cbSendBuffer ) ) );
-                assert( wDataSize == ( pSendDataRequest->wDataSize + sizeof( tagSendDataRequest ) - sizeof( pSendDataRequest->cbSendBuffer ) ) );
+                assert( nDataSize >= ( sizeof( tagSendDataRequest ) - sizeof( pSendDataRequest->cbSendBuffer ) ) );
+                assert( nDataSize == ( pSendDataRequest->nDataSize + sizeof( tagSendDataRequest ) - sizeof( pSendDataRequest->cbSendBuffer ) ) );
 
                 for( size_t i = 0; i < m_TempServerItemArray.size(); i++ )
                 {
                     ServerItem *pServerItem = m_TempServerItemArray[i];
                     std::unique_lock <std::mutex> ThreadLock( pServerItem->GetCriticalSection() );
-                    pServerItem->SendData( &(pSendDataRequest->MsgHeadInfo), pSendDataRequest->cbSendBuffer, pSendDataRequest->wDataSize );
+                    pServerItem->SendData( &(pSendDataRequest->MsgHeadInfo), pSendDataRequest->cbSendBuffer, pSendDataRequest->nDataSize );
                 }
 
                 return true;
@@ -1159,7 +1159,7 @@ namespace Firefly
 
             case Asyn_SHUT_DOWN:
             {
-                assert( wDataSize == sizeof( tagShutDown ) );
+                assert( nDataSize == sizeof( tagShutDown ) );
                 tagShutDown *pShutDown = ( tagShutDown * )pData;
                 LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " serveritemindex 1:" << pShutDown->wIndex;
                 ServerItem *pServerItem = GetServerItem( pShutDown->wIndex );
@@ -1173,7 +1173,7 @@ namespace Firefly
 
             case Asyn_CLOSE_SOCKET:
             {
-                assert( wDataSize == sizeof( tagCloseSocket ) );
+                assert( nDataSize == sizeof( tagCloseSocket ) );
                 tagCloseSocket *pCloseSocket = ( tagCloseSocket * )pData;
                 LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " serveritemindex 5:" << pCloseSocket->wIndex;
                 ServerItem *pServerItem = GetServerItem( pCloseSocket->wIndex );

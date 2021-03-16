@@ -83,12 +83,7 @@ bool TableHook::OnUserStandUp( int wChairID, IUserItem *pIUserItem, bool bLookon
     return true;
 }
 
-bool TableHook::OnGameMessage( MsgHead *pMsgHead, void *pData, int wDataSize, IUserItem *pIUserItem)
-{
-    return true;
-}
-
-bool TableHook::OnFrameMessage( int wSubCmdID, void *pData, int wDataSize, IUserItem *pIUserItem )
+bool TableHook::OnGameMessage( MsgHead *pMsgHead, void *pData, int nDataSize, IUserItem *pIUserItem)
 {
     return true;
 }

@@ -31,12 +31,12 @@ BridgeHook::~BridgeHook()
     }
 }
 
-bool BridgeHook::OnEventControl( unsigned short wIdentifier, void *pData, unsigned int wDataSize )
+bool BridgeHook::OnEventControl( unsigned short wIdentifier, void *pData, unsigned int nDataSize )
 {
     if( CUSTOMIZE_EVENT_CONNECT == wIdentifier )
     {
         /*protocol::ConnetCtrInfo msg;
-        if( msg.ParseFromArray( ( char * )pData, wDataSize ) )
+        if( msg.ParseFromArray( ( char * )pData, nDataSize ) )
         {
             int unMsgID = msg.nsocketid();
             if( SERVE_TYPE_DB == unMsgID )
@@ -52,17 +52,6 @@ bool BridgeHook::OnEventControl( unsigned short wIdentifier, void *pData, unsign
 
 bool BridgeHook::OnTimer( unsigned int unTimerID, unsigned int nBindParam )
 {
-    if( ( unTimerID >= IDI_TABLE_MODULE_START ) && ( unTimerID <= IDI_TABLE_MODULE_FINISH ) )
-    {
-        int dwTableTimerID = unTimerID - IDI_TABLE_MODULE_START;
-        std::map<int, ITable *>::iterator iter = m_mapGameType2Table.find( nBindParam );
-
-        if( iter != m_mapGameType2Table.end() )
-        {
-            iter->second->OnTimer( dwTableTimerID % TIME_TABLE_MODULE_RANGE, ( int )nBindParam );
-        }
-    }
-
     switch( unTimerID )
     {
         case CONNECT_TIMER:
@@ -133,14 +122,14 @@ bool BridgeHook::OnClientShut( unsigned int nServerID, char cbShutReason )
     return true;
 }
 
-bool BridgeHook::OnClientRead( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool BridgeHook::OnClientRead( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
-    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " gamesocket read cmd id:" << pMsgHead->wMainCmdID << ",sub Cmd id:" << pMsgHead->wSubCmdID << ",wDataSize:" << wDataSize;
+    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " gamesocket read cmd id:" << pMsgHead->wMainCmdID << ",sub Cmd id:" << pMsgHead->wSubCmdID << ",nDataSize:" << nDataSize;
 
     return true;
 }
 
-bool BridgeHook::OnClientCenterRegResp( void *pData, unsigned int wDataSize )
+bool BridgeHook::OnClientCenterRegResp( void *pData, unsigned int nDataSize )
 {
     return true;
 }
@@ -228,51 +217,51 @@ bool BridgeHook::OnServerShut( ServerItem *pItem )
     return true;
 }
 
-bool BridgeHook::OnServerRead(ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool BridgeHook::OnServerRead(ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
-    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " gameread cmd id:" << pMsgHead->wMainCmdID << ",sub Cmd id:" << pMsgHead->wSubCmdID << ",wDataSize:" << wDataSize;
+    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " gameread cmd id:" << pMsgHead->wMainCmdID << ",sub Cmd id:" << pMsgHead->wSubCmdID << ",nDataSize:" << nDataSize;
 
     switch( pMsgHead->wMainCmdID )
     {
         case CMD_HALL_BASE:
         {
-            return OnSubServerHallMsg( pMsgHead, pData, wDataSize );
+            return OnSubServerHallMsg( pMsgHead, pData, nDataSize );
         }
 
         case CMD_GAME_BASE:
         {
-            return OnSubServerGameMsg( pMsgHead, pData, wDataSize );
+            return OnSubServerGameMsg( pMsgHead, pData, nDataSize );
         }
     }
 
     return true;
 }
 
-bool BridgeHook::OnSubServerHallMsg( MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool BridgeHook::OnSubServerHallMsg( MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
     return true;
 }
 
-bool BridgeHook::OnSubServerGameMsg( MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool BridgeHook::OnSubServerGameMsg( MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
     return true;
 }
 
-void BridgeHook::OnLoginResp( void *pData, unsigned int wDataSize )
+void BridgeHook::OnLoginResp( void *pData, unsigned int nDataSize )
 {
 }
 
-bool BridgeHook::SendData( MsgHead *pMsgHead, void *pData, int wDataSize )
+bool BridgeHook::SendData( MsgHead *pMsgHead, void *pData, int nDataSize )
 {
     // auto nGateID = m_UserManager.SearchUserGate( cbSendMask );
 
     // if( nGateID >= 0 )
     // {
-        // m_pIMsgServer->SendData( nGateID, wMainCmdID, wSubCmdID, pData, wDataSize );
+        // m_pIMsgServer->SendData( nGateID, wMainCmdID, wSubCmdID, pData, nDataSize );
     // }
     // else if( cbSendMask == 0 )
     // {
-        // m_pIMsgServer->SendDataEx( wMainCmdID, wSubCmdID, pData, wDataSize );
+        // m_pIMsgServer->SendDataEx( wMainCmdID, wSubCmdID, pData, nDataSize );
     // }
     // else
     // {

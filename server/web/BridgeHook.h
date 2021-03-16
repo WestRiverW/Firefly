@@ -32,16 +32,16 @@ public:
 public:
     virtual bool OnClientLink( unsigned int nServerID, int nErrorCode );
     virtual bool OnClientShut( unsigned int nServerID, char cbShutReason );
-    virtual bool OnClientRead( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize );
+    virtual bool OnClientRead( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize );
 
 public:
     virtual bool OnServerReady();
     virtual bool OnServerBind( ServerItem *pItem );
     virtual bool OnServerShut( ServerItem *pItem );
-    virtual bool OnServerRead( ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int wDataSize );
+    virtual bool OnServerRead( ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int nDataSize );
 
 protected:
-    bool OnHttpRequest( void *pData, unsigned int wDataSize );
+    bool OnHttpRequest( void *pData, unsigned int nDataSize );
 protected:
     Launch* m_pLaunchBase;
     bool                    m_bCfgIsUpdated;

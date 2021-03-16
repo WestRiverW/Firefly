@@ -7,19 +7,9 @@
 
 namespace Firefly
 {
-    const static int    			CLIENT_KIND_UNKOWN = -1;
-    const static unsigned short    	INVALID_TABLE = -1;
-    const static unsigned short    	INVALID_CHAIR = -1;
-
     class ITable;
     class ITableHook;
     class IDataTransition;
-
-	#define IDI_TABLE_MODULE_START      1000
-	#define IDI_TABLE_MODULE_FINISH     5000
-
-	#define TIME_TABLE_Hook_RANGE       30
-	#define TIME_TABLE_MODULE_RANGE     50
 
     struct tagTableParameter
     {
@@ -59,15 +49,15 @@ namespace Firefly
 
     public:
         virtual bool SendTableData(int wChairID, int wSubCmdID) = 0;
-        virtual bool SendTableData(int wChairID, int wSubCmdID, void* pData, int wDataSize, int wMainCmdID) = 0;
+        virtual bool SendTableData(int wChairID, int wSubCmdID, void* pData, int nDataSize, int wMainCmdID) = 0;
         virtual bool PerformStandUpAction(IUserItem* pIUserItem) = 0;
         virtual bool PerformSitDownAction(int wChairID, IUserItem* pIUserItem, std::string lpszPassint = "") = 0;
         virtual bool OnUserOffLine(IUserItem* pIUserItem) = 0;
 
     public:
         virtual bool OnTimer(int unTimerID, int unParam) = 0;
-        virtual bool OnEventSocketGame(MsgHead* pMsgHead, void* pData, int wDataSize, IUserItem* pIUserItem) = 0;
-        virtual bool OnLoadCfgMessage(void* pData, int wDataSize, IUserItem* pIUserItem) = 0;
+        virtual bool OnEventSocketGame(MsgHead* pMsgHead, void* pData, int nDataSize, IUserItem* pIUserItem) = 0;
+        virtual bool OnLoadCfgMessage(void* pData, int nDataSize, IUserItem* pIUserItem) = 0;
         virtual  IMsgClient* GetMsgClient() = 0;
     };
 
@@ -86,16 +76,15 @@ namespace Firefly
         virtual bool OnTimer(int unTimerID, int unParam) = 0;
 
     public:
-        virtual bool OnGameMessage(MsgHead* pMsgHead, void* pData, int wDataSize, IUserItem* pIUserItem) = 0;
-        virtual bool OnFrameMessage(int wSubCmdID, void* pData, int wDataSize, IUserItem* pIUserItem) = 0;
-        virtual bool OnLoadCfgMessage(void* pData, int wDataSize, IUserItem* pIUserItem) = 0;
+        virtual bool OnGameMessage(MsgHead* pMsgHead, void* pData, int nDataSize, IUserItem* pIUserItem) = 0;
+        virtual bool OnLoadCfgMessage(void* pData, int nDataSize, IUserItem* pIUserItem) = 0;
     };
 
     //////////////////////////////////////////////////////////////////////////////////
     class IDataTransition : public FFObject
     {
     public:
-        virtual bool SendData(MsgHead* pMsgHead, void* pData, int wDataSize) = 0;
+        virtual bool SendData(MsgHead* pMsgHead, void* pData, int nDataSize) = 0;
     };
 }
 

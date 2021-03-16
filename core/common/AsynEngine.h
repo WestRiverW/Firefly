@@ -57,7 +57,7 @@ namespace Firefly
 
     public:
         virtual bool SetAsynHook(FFObject* pObject);
-        virtual bool PostAsynData(unsigned short wIdentifier, void* pData, unsigned int wDataSize);
+        virtual bool PostAsynData(unsigned short wIdentifier, void* pData, unsigned int nDataSize);
 
     protected:
         bool                   m_bService;

@@ -70,18 +70,18 @@ bool BridgeHook::OnClientShut( unsigned int nServerID, char cbShutReason )
     return true;
 }
 
-bool BridgeHook::OnClientRead( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool BridgeHook::OnClientRead( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
     return true;
 }
 
-bool BridgeHook::OnMainTcpSocketCenter( MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool BridgeHook::OnMainTcpSocketCenter( MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
     return true;
 }
 
 
-bool BridgeHook::OnMainTcpSocketHall( MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool BridgeHook::OnMainTcpSocketHall( MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
     return true;
 }
@@ -115,7 +115,7 @@ bool BridgeHook::OnServerShut( ServerItem *pItem )
     return true;
 }
 
-bool BridgeHook::OnServerRead(ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool BridgeHook::OnServerRead(ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
     return true;
 }

@@ -30,23 +30,23 @@ public:
     virtual bool OnBridgeStop( FFObject *pObject );
 
 public:
-    virtual bool OnEventControl( unsigned short wIdentifier, void *pData, unsigned int wDataSize );
-    virtual bool OnBridgeData( unsigned short wRequestID, void *pData, unsigned int wDataSize );
+    virtual bool OnEventControl( unsigned short wIdentifier, void *pData, unsigned int nDataSize );
+    virtual bool OnBridgeData( unsigned short wRequestID, void *pData, unsigned int nDataSize );
 
 public:
     virtual bool OnTimer( unsigned int unTimerID, unsigned int unMsgID );
-    virtual bool OnDataBase( unsigned short wRequestID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize );
+    virtual bool OnDataBase( unsigned short wRequestID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize );
 
 public:
     virtual bool OnClientLink( unsigned int nServerID, int nErrorCode );
     virtual bool OnClientShut( unsigned int nServerID, char cbShutReason );
-    virtual bool OnClientRead( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize );
+    virtual bool OnClientRead( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize );
 
 public:
     virtual bool OnServerReady();
     virtual bool OnServerBind( ServerItem *pItem );
     virtual bool OnServerShut( ServerItem *pItem );
-    virtual bool OnServerRead( ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int wDataSize);
+    virtual bool OnServerRead( ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int nDataSize);
 	
 protected:
     virtual bool SetConfig(pb::ServerInfo* pServerInfo);

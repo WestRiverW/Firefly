@@ -32,7 +32,7 @@ bool BridgeHook::OnServerShut( ServerItem *pItem  )
     return true;
 }
 
-bool BridgeHook::OnServerRead( ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool BridgeHook::OnServerRead( ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
 
     return true;

@@ -36,8 +36,7 @@ public:
     virtual bool OnUserStandUp( int wChairID, IUserItem *pIUserItem, bool bLookonUser );
 
 public:
-    virtual bool OnGameMessage( MsgHead *pMsgHead, void *pData, int wDataSize, IUserItem *pIUserItem);
-    virtual bool OnFrameMessage( int wSubCmdID, void *pData, int wDataSize, IUserItem *pIUserItem );
+    virtual bool OnGameMessage( MsgHead *pMsgHead, void *pData, int nDataSize, IUserItem *pIUserItem);
 
 public:
     ITable  		*m_pITable;

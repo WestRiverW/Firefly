@@ -39,7 +39,7 @@ namespace Firefly
     public:
         bool Connect(int epollfd, unsigned int dwServerID, unsigned int dwServerIP, unsigned short wPort);
         bool SendData(unsigned short wMainCmdID, unsigned short wSubCmdID);
-        bool SendData(MsgHead* pMsgHead, void* pData, unsigned int wDataSize);
+        bool SendData(MsgHead* pMsgHead, void* pData, unsigned int nDataSize);
         bool CloseSocket();
     public:
         inline std::mutex& GetCriticalSection()
@@ -48,7 +48,7 @@ namespace Firefly
         }
     private:
         unsigned int SendBuffer(void* pBuffer, unsigned int wSendSize);
-        void AmortizeBuffer(void* pData, unsigned int wDataSize);
+        void AmortizeBuffer(void* pData, unsigned int nDataSize);
     public:
         unsigned short      m_hSocket;
         unsigned char       m_ClientStatus;
@@ -144,7 +144,7 @@ namespace Firefly
         virtual bool OnStop();
 
     public:
-        bool PostRequest(unsigned short wIdentifier, void* const pBuffer, unsigned int wDataSize);
+        bool PostRequest(unsigned short wIdentifier, void* const pBuffer, unsigned int nDataSize);
 
     private:
         unsigned int OnServiceRequest();
@@ -182,12 +182,12 @@ namespace Firefly
         virtual bool Connect(unsigned int dwServerID, unsigned int dwServerIP, unsigned short wPort);
         virtual bool Connect(unsigned int dwServerID, const char* szServerIP, unsigned short wPort);
         virtual bool SendData(unsigned int dwServerID, MsgHead* pMsgHead);
-        virtual bool SendData(unsigned int dwServerID, MsgHead* pMsgHead, void* pData, unsigned int wDataSize);
+        virtual bool SendData(unsigned int dwServerID, MsgHead* pMsgHead, void* pData, unsigned int nDataSize);
         virtual bool CloseSocket(unsigned int dwServerID);
 
     public:
         bool OnClientLink(unsigned int dwServerID, int nErrorCode);
-        bool OnClientRead(MsgHead* pMsgHead, void* pData, unsigned int wDataSize);
+        bool OnClientRead(MsgHead* pMsgHead, void* pData, unsigned int nDataSize);
         bool OnClientShut(unsigned int dwServerID, char cbShutReason);
 
     public:

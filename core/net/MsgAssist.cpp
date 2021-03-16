@@ -6,13 +6,13 @@ namespace Firefly
 {
 	const unsigned int MsgAssist::MSG_HEAD_LENGTH = sizeof(MsgHead);
 
-	void MsgAssist::encode(MsgHead* pMsgHead, void* pData, unsigned int wDataSize, char* pDataBuffer, int& nPacketSize)
+	void MsgAssist::encode(MsgHead* pMsgHead, void* pData, unsigned int nDataSize, char* pDataBuffer, int& nPacketSize)
 	{
 		nPacketSize = MsgAssist::MSG_HEAD_LENGTH;
 		memcpy(pDataBuffer, pMsgHead, nPacketSize);
 
-		memcpy(pDataBuffer + nPacketSize, pData, wDataSize);
-		nPacketSize += wDataSize;
+		memcpy(pDataBuffer + nPacketSize, pData, nDataSize);
+		nPacketSize += nDataSize;
 	}
 	/*
 	void MsgAssist::encode(protocol::MsgBody* pMsgBody, void* data, int& nBodyLen)

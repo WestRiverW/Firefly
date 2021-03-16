@@ -46,15 +46,15 @@ public:
 
 public:
     virtual bool SendTableData( int wChairID, int wSubCmdID );
-    virtual bool SendTableData( int wChairID, int wSubCmdID, void *pData, int wDataSize, int wMainCmdID );
+    virtual bool SendTableData( int wChairID, int wSubCmdID, void *pData, int nDataSize, int wMainCmdID );
     virtual bool PerformStandUpAction( IUserItem *pIUserItem );
     virtual bool PerformSitDownAction( int wChairID, IUserItem *pIUserItem, std::string lpszPassint = "" );
 
     bool OnUserOffLine( IUserItem *pIUserItem );
 public:
     bool OnTimer( int unTimerID, int unParam );
-    bool OnEventSocketGame( MsgHead *pMsgHead, void *pData, int wDataSize, IUserItem *pIUserItem);
-    bool OnLoadCfgMessage( void *pData, int wDataSize, IUserItem *pIUserItem );
+    bool OnEventSocketGame( MsgHead *pMsgHead, void *pData, int nDataSize, IUserItem *pIUserItem);
+    bool OnLoadCfgMessage( void *pData, int nDataSize, IUserItem *pIUserItem );
     virtual  IMsgClient *GetMsgClient();
 
 protected:

@@ -28,14 +28,14 @@ namespace Firefly
         return m_dwDataPacketCount;
     }
 
-    bool DataQueue::InsertData(unsigned short wIdentifier, void* pBuffer, unsigned int wDataSize)
+    bool DataQueue::InsertData(unsigned short wIdentifier, void* pBuffer, unsigned int nDataSize)
     {
         tagDataHead DataHead;
         memset(&DataHead, 0, sizeof(DataHead));
-        DataHead.wDataSize = wDataSize;
+        DataHead.nDataSize = nDataSize;
         DataHead.wIdentifier = wIdentifier;
 
-        if (RectifyBuffer(sizeof(DataHead) + DataHead.wDataSize) == false)
+        if (RectifyBuffer(sizeof(DataHead) + DataHead.nDataSize) == false)
         {
             assert(false);
             return false;
@@ -44,15 +44,15 @@ namespace Firefly
         try
         {
             memcpy(m_pDataQueueBuffer + m_dwInsertPos, &DataHead, sizeof(DataHead));
-            if (wDataSize > 0)
+            if (nDataSize > 0)
             {
                 assert(pBuffer != NULL);
-                memcpy(m_pDataQueueBuffer + m_dwInsertPos + sizeof(DataHead), pBuffer, wDataSize);
+                memcpy(m_pDataQueueBuffer + m_dwInsertPos + sizeof(DataHead), pBuffer, nDataSize);
             }
 
             m_dwDataPacketCount++;
-            m_dwDataSize += sizeof(DataHead) + wDataSize;
-            m_dwInsertPos += sizeof(DataHead) + wDataSize;
+            m_dwDataSize += sizeof(DataHead) + nDataSize;
+            m_dwInsertPos += sizeof(DataHead) + nDataSize;
             m_dwTerminalPos = std::max(m_dwTerminalPos, m_dwInsertPos);
             return true;
         }
@@ -82,16 +82,16 @@ namespace Firefly
 
         assert(m_dwBufferSize >= (m_dwDataQueryPos + sizeof(tagDataHead)));
         tagDataHead* pDataHead = (tagDataHead*)(m_pDataQueueBuffer + m_dwDataQueryPos);
-        assert(wBufferSize >= pDataHead->wDataSize);
-        unsigned int wPacketSize = sizeof(DataHead) + pDataHead->wDataSize;
+        assert(wBufferSize >= pDataHead->nDataSize);
+        unsigned int wPacketSize = sizeof(DataHead) + pDataHead->nDataSize;
         assert(m_dwBufferSize >= (m_dwDataQueryPos + wPacketSize));
-        assert(wBufferSize >= pDataHead->wDataSize);
+        assert(wBufferSize >= pDataHead->nDataSize);
         DataHead = *pDataHead;
 
-        if (DataHead.wDataSize > 0)
+        if (DataHead.nDataSize > 0)
         {
-            if (wBufferSize < pDataHead->wDataSize) DataHead.wDataSize = 0;
-            else memcpy(pBuffer, pDataHead + 1, DataHead.wDataSize);
+            if (wBufferSize < pDataHead->nDataSize) DataHead.nDataSize = 0;
+            else memcpy(pBuffer, pDataHead + 1, DataHead.nDataSize);
         }
 
         assert(wPacketSize <= m_dwDataSize);

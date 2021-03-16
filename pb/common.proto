@@ -23,10 +23,12 @@ message MsgBody
 message ServerInfo
 {
 	int32 				MainType				= 1;
-	int32 				ServerID				= 2;
-	string              Ip                   	= 3;
-    int32               Port                   	= 4;
-	int32				MaxConnect				= 5;
+	int32 				GameID					= 2;
+	int32				InstID					= 3;
+	string              Ip                   	= 4;
+    int32               Port                   	= 5;
+	int32				CurrConnect				= 6
+	int32				MaxConnect				= 7;
 }
 
 message LoginInfo
@@ -37,20 +39,6 @@ message LoginInfo
     string              MachineID            = 4;
     int32               AccountsType          = 5;
     int32               ClientKind            = 6;
-    int32               ClientPort             = 7;
-}
-
-message LoginResp
-{
-    int32               UserID                 = 1;
-    int32               GameID                 = 2;
-    string              Accounts             = 3;
-    string              NickName            = 4;
-    int32               FaceID               = 5;
-    int32               Gender               = 6;
-    int64               Score                = 7;
-    int32               AccountsType          = 8;
-    int32               ClientKind            = 9;//Client类型
 }
 
 message RegisterInfo
@@ -66,5 +54,20 @@ message RegisterInfo
     int32               AccountsType          = 11;
     int32               ClientKind            = 12;
 }
+
+message LoginResp
+{
+    int32               UserID                 = 1;
+    int32               GameID                 = 2;
+    string              Accounts             = 3;
+    string              NickName            = 4;
+    int32               FaceID               = 5;
+    int32               Gender               = 6;
+    int64               Score                = 7;
+    int32               AccountsType          = 8;
+    int32               ClientKind            = 9;//Client
+}
+
+
 
 // [END messages]

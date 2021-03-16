@@ -21,7 +21,7 @@ BridgeHook::~BridgeHook()
 }
 
 //
-bool BridgeHook::OnEventControl( unsigned short wIdentifier, void *pData, unsigned int wDataSize )
+bool BridgeHook::OnEventControl( unsigned short wIdentifier, void *pData, unsigned int nDataSize )
 {
     return true;
 }
@@ -46,7 +46,7 @@ bool BridgeHook::OnTimer(unsigned int unTimerID, unsigned int unMsgID)
 }
 
 //
-bool BridgeHook::OnDataBase( unsigned short wRequestID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool BridgeHook::OnDataBase( unsigned short wRequestID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
     switch( wRequestID )
     {
@@ -102,7 +102,7 @@ bool BridgeHook::OnClientShut( unsigned int nServerID, char cbShutReason )
 }
 
 //
-bool BridgeHook::OnClientRead(unsigned int nServerID,  MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool BridgeHook::OnClientRead(unsigned int nServerID,  MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
     LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " gatesocketread " << pMsgHead->wMainCmdID << "  " << pMsgHead->wSubCmdID;
 
@@ -110,32 +110,32 @@ bool BridgeHook::OnClientRead(unsigned int nServerID,  MsgHead *pMsgHead, void *
     return true;
 }
 
-bool BridgeHook::OnClientCenterMessage( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool BridgeHook::OnClientCenterMessage( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
     return true;
 }
 
-bool BridgeHook::OnClientPullCfgResp( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool BridgeHook::OnClientPullCfgResp( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
 
     return true;
 }
 
-bool BridgeHook::OnClientCenterRegResp( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool BridgeHook::OnClientCenterRegResp( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
     //m_pGateLogic->PullServerInfo(SERVE_TYPE_GAME);
     //m_pGateLogic->PullServerInfo(SERVE_TYPE_HALL);
     return true;
 }
 
-bool BridgeHook::OnClientHallMessage( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool BridgeHook::OnClientHallMessage( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
 
     return true;
 }
 
 
-bool BridgeHook::OnClientGameMessage( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool BridgeHook::OnClientGameMessage( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
     LOG( INFO ) << strThreadLogFlag << __FUNCTION__  << " -------------CMD_GAME_BASE----------1--";
 
@@ -167,9 +167,9 @@ bool BridgeHook::OnServerShut( ServerItem *pItem )
 }
 
 //
-bool BridgeHook::OnServerRead(ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool BridgeHook::OnServerRead(ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
-    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << "gateread id:" << pMsgHead->wMainCmdID << ",sub id:" << pMsgHead->wSubCmdID << ",wDataSize:" << wDataSize << " index:" << pItem->GetSocketID();
+    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << "gateread id:" << pMsgHead->wMainCmdID << ",sub id:" << pMsgHead->wSubCmdID << ",nDataSize:" << nDataSize << " index:" << pItem->GetSocketID();
 
     switch( pMsgHead->wMainCmdID )
     {

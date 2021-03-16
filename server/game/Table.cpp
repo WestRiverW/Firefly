@@ -54,28 +54,11 @@ IUserItem *Table::GetUserItem( int wChairID )
 
 bool Table::SetTimer( int unTimerID, int dwElapse, int dwRepeat, int unParam )
 {
-    //LOG(INFO)<<strThreadLogFlag << __FUNCTION__<<"TFSetGameTimer unTimerID 1:" << unTimerID<<",dwRepeat:" << dwRepeat <<"  "<<unParam;
-    if( m_pITimer != NULL )
-    {
-        //  LOG(INFO)<<strThreadLogFlag << __FUNCTION__<<"TFSetGameTimer unTimerID 2:" << unTimerID<<",dwRepeat:" << dwRepeat<<"  "<<unParam;;
-        int  dwEngineTimerID = IDI_TABLE_MODULE_START + m_iTableID * TIME_TABLE_MODULE_RANGE;
-        LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << "	TFSetGameTimer unTimerID 3:" << unTimerID << ",dwRepeat:" << dwRepeat << "  " << unParam << "  " << dwEngineTimerID << "	dwElapse:" << dwElapse;
-        m_pITimer->SetTimer( dwEngineTimerID + unTimerID, dwElapse, dwRepeat, unParam );
-    }
-
     return true;
 }
 
 bool Table::KillTimer( int unTimerID )
 {
-    int dwEngineTimerID = IDI_TABLE_MODULE_START + m_iTableID * TIME_TABLE_MODULE_RANGE;
-
-    if( m_pITimer != NULL )
-    {
-        LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << "	KillTimer unTimerID :" << unTimerID;
-        m_pITimer->KillTimer( dwEngineTimerID + unTimerID );
-    }
-
     return true;
 }
 
@@ -85,9 +68,9 @@ bool Table::SendTableData( int wChairID, int wSubCmdID )
     return true;
 }
 
-bool Table::SendTableData( int wChairID, int wSubCmdID, void *pData, int wDataSize, int wMainCmdID )
+bool Table::SendTableData( int wChairID, int wSubCmdID, void *pData, int nDataSize, int wMainCmdID )
 {
-    //m_pIMainServiceFrame->SendData( wChairID, wMainCmdID, wSubCmdID, pData, wDataSize );
+    //m_pIMainServiceFrame->SendData( wChairID, wMainCmdID, wSubCmdID, pData, nDataSize );
     return true;
 }
 
@@ -110,33 +93,22 @@ bool Table::OnUserOffLine( IUserItem *pIUserItem )
 
 bool Table::OnTimer( int unTimerID, int unParam )
 {
-    //    LOG(INFO)<<strThreadLogFlag << __FUNCTION__<<" Table unTimerID 1 :" << unTimerID << "  " << unParam;
-    if( ( unTimerID >= 0 ) && ( unTimerID < TIME_TABLE_Hook_RANGE ) )
-    {
-        //LOG(INFO)<<strThreadLogFlag << __FUNCTION__<<" Table unTimerID 2 :" << unTimerID << "  " << unParam << "  " <<m_pITableHook;
-        if( m_pITableHook != NULL )
-        {
-            LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " Table unTimerID 3 :" << unTimerID << "  " << unParam;
-            return m_pITableHook->OnTimer( unTimerID, unParam );
-        }
-    }
-
     return true;
 }
 
-bool Table::OnEventSocketGame( MsgHead *pMsgHead, void *pData, int wDataSize, IUserItem *pIUserItem )
+bool Table::OnEventSocketGame( MsgHead *pMsgHead, void *pData, int nDataSize, IUserItem *pIUserItem )
 {
-    //LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " wSubCmdID:" << rCommand.wSubCmdID << ",wDataSize:" << wDataSize;
+    //LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " wSubCmdID:" << rCommand.wSubCmdID << ",nDataSize:" << nDataSize;
     assert( m_pITableHook != NULL );
 
-    return m_pITableHook->OnGameMessage( pMsgHead, pData, wDataSize, pIUserItem );
+    return m_pITableHook->OnGameMessage( pMsgHead, pData, nDataSize, pIUserItem );
 }
 
-bool Table::OnLoadCfgMessage( void *pData, int wDataSize, IUserItem *pIUserItem )
+bool Table::OnLoadCfgMessage( void *pData, int nDataSize, IUserItem *pIUserItem )
 {
-    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << ",wDataSize:" << wDataSize;
+    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << ",nDataSize:" << nDataSize;
     assert( m_pITableHook != NULL );
-    return m_pITableHook->OnLoadCfgMessage( pData, wDataSize, pIUserItem );
+    return m_pITableHook->OnLoadCfgMessage( pData, nDataSize, pIUserItem );
 }
 
 IMsgClient *Table::GetMsgClient()

@@ -56,17 +56,17 @@ public:
 
 public:
     virtual bool OnDBEngineTimer( unsigned int unTimerID, unsigned int unParam );
-    virtual bool OnDBEngineControl( unsigned short wControlID, void *pData, unsigned int wDataSize );
-    virtual bool OnDBEngineRequest( unsigned short wRequestID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize );
+    virtual bool OnDBEngineControl( unsigned short wControlID, void *pData, unsigned int nDataSize );
+    virtual bool OnDBEngineRequest( unsigned short wRequestID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize );
 
 protected:
     inline void DoMysqlQuery( DataBase *pDataBase, FFDBResult &result, std::vector<std::vector<std::string>> &rows, std::vector<std::string> &row, const char *strProcess, const char *strSqlRet );
     inline void DoMysqlQueryEx( DataBase *pDataBase, FFDBResult &result, std::vector<std::vector<std::string>> &rows, std::vector<std::string> &row, const char *strProcess, const char *strSqlRet );
 
 protected:
-    bool OnMobileLogonAccounts( MsgHead *pMsgHead, void *pData, unsigned int wDataSize );
-    bool OnMobileLeaveAccounts( MsgHead *pMsgHead, void *pData, unsigned int wDataSize );
-    bool OnMBRegister( MsgHead *pMsgHead, void *pData, unsigned int wDataSize );
+    bool OnMobileLogonAccounts( MsgHead *pMsgHead, void *pData, unsigned int nDataSize );
+    bool OnMobileLeaveAccounts( MsgHead *pMsgHead, void *pData, unsigned int nDataSize );
+    bool OnMBRegister( MsgHead *pMsgHead, void *pData, unsigned int nDataSize );
 };
 
 #endif

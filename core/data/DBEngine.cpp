@@ -377,7 +377,7 @@ namespace Firefly
         return true;
     }
 
-    bool DBEngine::PostDBControl(unsigned short wControlID, void* pData, unsigned int wDataSize)
+    bool DBEngine::PostDBControl(unsigned short wControlID, void* pData, unsigned int nDataSize)
     {
         std::unique_lock<std::mutex> ThreadLock(m_CriticalLocker);
         tagControl* pControlEvent = (tagControl*)m_cbBuffer;
@@ -386,24 +386,24 @@ namespace Firefly
         return true;
     }
 
-    bool DBEngine::PostDBRequest(unsigned short wRequestID, MsgHead* pMsgHead, void* pData, unsigned int wDataSize)
+    bool DBEngine::PostDBRequest(unsigned short wRequestID, MsgHead* pMsgHead, void* pData, unsigned int nDataSize)
     {
-        LOG(INFO) << strThreadLogFlag << __FUNCTION__ << " wRequestID:" << wRequestID << ",wDataSize:" << wDataSize;
-        assert((wDataSize + sizeof(tagDataBase)) <= ASYN_DATA_LEN);
-        if ((wDataSize + sizeof(tagDataBase)) > ASYN_DATA_LEN) return false;
+        LOG(INFO) << strThreadLogFlag << __FUNCTION__ << " wRequestID:" << wRequestID << ",nDataSize:" << nDataSize;
+        assert((nDataSize + sizeof(tagDataBase)) <= ASYN_DATA_LEN);
+        if ((nDataSize + sizeof(tagDataBase)) > ASYN_DATA_LEN) return false;
 
         std::unique_lock<std::mutex> ThreadLock(m_CriticalLocker);
         tagDataBase* pDataBaseEvent = (tagDataBase*)m_cbBuffer;
         pDataBaseEvent->wRequestID = wRequestID;
         pDataBaseEvent->MsgHeadInfo = *pMsgHead;
 
-        if (wDataSize > 0)
+        if (nDataSize > 0)
         {
             assert(pData != NULL);
-            memcpy(m_cbBuffer + sizeof(tagDataBase), pData, wDataSize);
+            memcpy(m_cbBuffer + sizeof(tagDataBase), pData, nDataSize);
         }
 
-        m_AsynEngine.PostAsynData(MSG_DATABASE, m_cbBuffer, sizeof(tagDataBase) + wDataSize);
+        m_AsynEngine.PostAsynData(MSG_DATABASE, m_cbBuffer, sizeof(tagDataBase) + nDataSize);
         return true;
     }
 
@@ -421,14 +421,14 @@ namespace Firefly
         return m_pIDBEngineHook->OnDBEngineStop(dynamic_cast<IAsynEngineHook*>(this));
     }
 
-    bool DBEngine::OnAsynEngineData(unsigned short wIdentifier, void* pData, unsigned int wDataSize)
+    bool DBEngine::OnAsynEngineData(unsigned short wIdentifier, void* pData, unsigned int nDataSize)
     {
         switch (wIdentifier)
         {
         case MSG_TIMER:
         {
-            assert(wDataSize == sizeof(tagTimer));
-            if (wDataSize != sizeof(tagTimer)) return false;
+            assert(nDataSize == sizeof(tagTimer));
+            if (nDataSize != sizeof(tagTimer)) return false;
             tagTimer* pTimerEvent = (tagTimer*)pData;
             try
             {
@@ -446,14 +446,14 @@ namespace Firefly
 
         case MSG_CONTROL:
         {
-            assert(wDataSize >= sizeof(tagControl));
-            if (wDataSize < sizeof(tagControl)) return false;
+            assert(nDataSize >= sizeof(tagControl));
+            if (nDataSize < sizeof(tagControl)) return false;
             tagControl* pControlEvent = (tagControl*)pData;
 
             try
             {
                 assert(m_pIDBEngineHook != NULL);
-                m_pIDBEngineHook->OnDBEngineControl(pControlEvent->wControlID, pControlEvent + 1, wDataSize - sizeof(tagControl));
+                m_pIDBEngineHook->OnDBEngineControl(pControlEvent->wControlID, pControlEvent + 1, nDataSize - sizeof(tagControl));
             }
             catch (...)
             {
@@ -466,8 +466,8 @@ namespace Firefly
 
         case MSG_DATABASE:
         {
-            assert(wDataSize >= sizeof(tagDataBase));
-            if (wDataSize < sizeof(tagDataBase)) return false;
+            assert(nDataSize >= sizeof(tagDataBase));
+            if (nDataSize < sizeof(tagDataBase)) return false;
 
             tagDataBase* pDataBaseEvent = (tagDataBase*)pData;
 
@@ -475,7 +475,7 @@ namespace Firefly
             {
                 assert(m_pIDBEngineHook != NULL);
                 return m_pIDBEngineHook->OnDBEngineRequest(pDataBaseEvent->wRequestID, &pDataBaseEvent->MsgHeadInfo,
-                    pDataBaseEvent + 1, wDataSize - sizeof(tagDataBase));
+                    pDataBaseEvent + 1, nDataSize - sizeof(tagDataBase));
             }
             catch (...)
             {

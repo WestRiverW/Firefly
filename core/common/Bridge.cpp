@@ -41,20 +41,20 @@ namespace Firefly
         return true;
     }
 
-    bool Bridge::SendControl(unsigned short wControlID, void* pData, unsigned int wDataSize)
+    bool Bridge::SendControl(unsigned short wControlID, void* pData, unsigned int nDataSize)
     {
         std::unique_lock <std::mutex> lck(m_mutCritical);
         tagControl* pControlRequest = (tagControl*)m_cbBuffer;
         pControlRequest->wControlID = wControlID;
         pControlRequest->pData = pData;
 
-        if (wDataSize > 0)
+        if (nDataSize > 0)
         {
             assert(pData != NULL);
-            memcpy(m_cbBuffer + sizeof(tagControl), pData, wDataSize);
+            memcpy(m_cbBuffer + sizeof(tagControl), pData, nDataSize);
         }
 
-        return m_AsynEngine.PostAsynData(MSG_CONTROL, m_cbBuffer, sizeof(tagControl) + wDataSize);
+        return m_AsynEngine.PostAsynData(MSG_CONTROL, m_cbBuffer, sizeof(tagControl) + nDataSize);
     }
 
     bool Bridge::SetServer(IMsgServer* pObject)
@@ -80,20 +80,20 @@ namespace Firefly
         return m_AsynEngine.PostAsynData(MSG_CLIENT_LINK, m_cbBuffer, sizeof(tagClientLink));
     }
 
-    bool Bridge::OnClientRead(MsgHead* pMsgHead, void* pData, unsigned int wDataSize)
+    bool Bridge::OnClientRead(MsgHead* pMsgHead, void* pData, unsigned int nDataSize)
     {
         std::unique_lock <std::mutex> lck(m_mutCritical);
         tagClientRead* pReadEvent = (tagClientRead*)m_cbBuffer;
         pReadEvent->MsgHeadInfo = *pMsgHead;
-        pReadEvent->wDataSize = wDataSize;
+        pReadEvent->nDataSize = nDataSize;
 
-        if (wDataSize > 0)
+        if (nDataSize > 0)
         {
             assert(pData != NULL);
-            memcpy(m_cbBuffer + sizeof(tagClientRead), pData, wDataSize);
+            memcpy(m_cbBuffer + sizeof(tagClientRead), pData, nDataSize);
         }
 
-        return m_AsynEngine.PostAsynData(MSG_CLIENT_READ, m_cbBuffer, sizeof(tagClientRead) + wDataSize);
+        return m_AsynEngine.PostAsynData(MSG_CLIENT_READ, m_cbBuffer, sizeof(tagClientRead) + nDataSize);
     }
 
     bool Bridge::OnClientShut(unsigned int nServerID, char cbShutReason)
@@ -121,23 +121,23 @@ namespace Firefly
         return m_AsynEngine.PostAsynData(MSG_SERVER_ACCEPT, m_cbBuffer, sizeof(tagServerAccept));
     }
 
-    bool Bridge::OnServerRead(ServerItem* pItem, MsgHead* pMsgHead, void* pData, unsigned int wDataSize)
+    bool Bridge::OnServerRead(ServerItem* pItem, MsgHead* pMsgHead, void* pData, unsigned int nDataSize)
     {
-        assert((wDataSize + sizeof(tagServerRead)) <= ASYN_DATA_LEN);
-        if ((wDataSize + sizeof(tagServerRead)) > ASYN_DATA_LEN) return false;
+        assert((nDataSize + sizeof(tagServerRead)) <= ASYN_DATA_LEN);
+        if ((nDataSize + sizeof(tagServerRead)) > ASYN_DATA_LEN) return false;
 
         std::unique_lock <std::mutex> lck(m_mutCritical);
         tagServerRead* pReadEvent = (tagServerRead*)m_cbBuffer;
         pReadEvent->MsgHeadInfo = *pMsgHead;
-        pReadEvent->wDataSize = wDataSize;
+        pReadEvent->nDataSize = nDataSize;
         pReadEvent->pData = (void*)pItem;
 
-        if (wDataSize > 0)
+        if (nDataSize > 0)
         {
             assert(pData != NULL);
-            memcpy(m_cbBuffer + sizeof(tagServerRead), pData, wDataSize);
+            memcpy(m_cbBuffer + sizeof(tagServerRead), pData, nDataSize);
         }
-        return m_AsynEngine.PostAsynData(MSG_SERVER_READ, m_cbBuffer, sizeof(tagServerRead) + wDataSize);
+        return m_AsynEngine.PostAsynData(MSG_SERVER_READ, m_cbBuffer, sizeof(tagServerRead) + nDataSize);
     }
 
     bool Bridge::OnServerShut(ServerItem* pItem)
@@ -157,21 +157,21 @@ namespace Firefly
         return m_AsynEngine.PostAsynData(MSG_TIMER, m_cbBuffer, sizeof(tagTimer));
     }
 
-    bool Bridge::OnDBResult(unsigned short wRequestID, MsgHead* pMsgHead, void* pData, unsigned int wDataSize)
+    bool Bridge::OnDBResult(unsigned short wRequestID, MsgHead* pMsgHead, void* pData, unsigned int nDataSize)
     {
-        assert((wDataSize + sizeof(tagDataBase)) <= ASYN_DATA_LEN);
-        if ((wDataSize + sizeof(tagDataBase)) > ASYN_DATA_LEN) return false;
+        assert((nDataSize + sizeof(tagDataBase)) <= ASYN_DATA_LEN);
+        if ((nDataSize + sizeof(tagDataBase)) > ASYN_DATA_LEN) return false;
         std::unique_lock <std::mutex> lck(m_mutCritical);
         tagDataBase* pDataBaseEvent = (tagDataBase*)m_cbBuffer;
         pDataBaseEvent->wRequestID = wRequestID;
         pDataBaseEvent->MsgHeadInfo = *pMsgHead;
 
-        if (wDataSize > 0)
+        if (nDataSize > 0)
         {
             assert(pData != NULL);
-            memcpy(m_cbBuffer + sizeof(tagDataBase), pData, wDataSize);
+            memcpy(m_cbBuffer + sizeof(tagDataBase), pData, nDataSize);
         }
-        return m_AsynEngine.PostAsynData(MSG_DATABASE, m_cbBuffer, sizeof(tagDataBase) + wDataSize);
+        return m_AsynEngine.PostAsynData(MSG_DATABASE, m_cbBuffer, sizeof(tagDataBase) + nDataSize);
     }
 
     bool Bridge::OnAsynEngineStart()
@@ -198,7 +198,7 @@ namespace Firefly
         return true;
     }
 
-    bool Bridge::OnAsynEngineData(unsigned short wIdentifier, void* pData, unsigned int wDataSize)
+    bool Bridge::OnAsynEngineData(unsigned short wIdentifier, void* pData, unsigned int nDataSize)
     {
         assert(m_pIMsgServer != NULL);
         assert(m_pIBridgeHook != NULL);
@@ -206,8 +206,8 @@ namespace Firefly
         {
         case MSG_TIMER:
         {
-            assert(wDataSize == sizeof(tagTimer));
-            if (wDataSize != sizeof(tagTimer)) return false;
+            assert(nDataSize == sizeof(tagTimer));
+            if (nDataSize != sizeof(tagTimer)) return false;
             tagTimer* pTimerEvent = (tagTimer*)pData;
             m_pIBridgeHook->OnTimer(pTimerEvent->unTimerID, pTimerEvent->unParam);
             return true;
@@ -215,32 +215,32 @@ namespace Firefly
         case MSG_CONTROL:
         {
             tagControl* pControlEvent = (tagControl*)pData;
-            m_pIBridgeHook->OnEventControl(pControlEvent->wControlID, pControlEvent + 1, wDataSize - sizeof(tagControl));
+            m_pIBridgeHook->OnEventControl(pControlEvent->wControlID, pControlEvent + 1, nDataSize - sizeof(tagControl));
             return true;
         }
         case MSG_DATABASE:
         {
-            assert(wDataSize >= sizeof(tagDataBase));
-            if (wDataSize < sizeof(tagDataBase)) return false;
+            assert(nDataSize >= sizeof(tagDataBase));
+            if (nDataSize < sizeof(tagDataBase)) return false;
             tagDataBase* pDataBaseEvent = (tagDataBase*)pData;
-            m_pIBridgeHook->OnDataBase(pDataBaseEvent->wRequestID, &pDataBaseEvent->MsgHeadInfo, pDataBaseEvent + 1, wDataSize - sizeof(tagDataBase));
+            m_pIBridgeHook->OnDataBase(pDataBaseEvent->wRequestID, &pDataBaseEvent->MsgHeadInfo, pDataBaseEvent + 1, nDataSize - sizeof(tagDataBase));
             return true;
         }
         case MSG_CLIENT_READ:
         {
             tagClientRead* pReadEvent = (tagClientRead*)pData;
-            assert(wDataSize >= sizeof(tagClientRead));
-            assert(wDataSize == (sizeof(tagClientRead) + pReadEvent->wDataSize));
-            if (wDataSize < sizeof(tagClientRead)) return false;
-            if (wDataSize != (sizeof(tagClientRead) + pReadEvent->wDataSize)) return false;
-            m_pIBridgeHook->OnClientRead(pReadEvent->nServerID, &(pReadEvent->MsgHeadInfo), pReadEvent + 1, pReadEvent->wDataSize);
+            assert(nDataSize >= sizeof(tagClientRead));
+            assert(nDataSize == (sizeof(tagClientRead) + pReadEvent->nDataSize));
+            if (nDataSize < sizeof(tagClientRead)) return false;
+            if (nDataSize != (sizeof(tagClientRead) + pReadEvent->nDataSize)) return false;
+            m_pIBridgeHook->OnClientRead(pReadEvent->nServerID, &(pReadEvent->MsgHeadInfo), pReadEvent + 1, pReadEvent->nDataSize);
             return true;
         }
 
         case MSG_CLIENT_SHUT:
         {
-            assert(wDataSize == sizeof(tagClientShut));
-            if (wDataSize != sizeof(tagClientShut)) return false;
+            assert(nDataSize == sizeof(tagClientShut));
+            if (nDataSize != sizeof(tagClientShut)) return false;
             tagClientShut* pCloseEvent = (tagClientShut*)pData;
             m_pIBridgeHook->OnClientShut(pCloseEvent->nServerID, pCloseEvent->cbShutReason);
             return true;
@@ -248,8 +248,8 @@ namespace Firefly
 
         case MSG_CLIENT_LINK:
         {
-            assert(wDataSize == sizeof(tagClientLink));
-            if (wDataSize != sizeof(tagClientLink)) return false;
+            assert(nDataSize == sizeof(tagClientLink));
+            if (nDataSize != sizeof(tagClientLink)) return false;
             tagClientLink* pConnectEvent = (tagClientLink*)pData;
             m_pIBridgeHook->OnClientLink(pConnectEvent->nServerID, pConnectEvent->nErrorCode);
             return true;
@@ -257,8 +257,8 @@ namespace Firefly
 
         case MSG_SERVER_ACCEPT:
         {
-            assert(wDataSize == sizeof(tagServerAccept));
-            if (wDataSize != sizeof(tagServerAccept)) return false;
+            assert(nDataSize == sizeof(tagServerAccept));
+            if (nDataSize != sizeof(tagServerAccept)) return false;
             bool bSuccess = false;
             tagServerAccept* pAcceptEvent = (tagServerAccept*)pData;
             try
@@ -272,15 +272,15 @@ namespace Firefly
         case MSG_SERVER_READ:
         {
             tagServerRead* pReadEvent = (tagServerRead*)pData;
-            assert(wDataSize >= sizeof(tagServerRead));
-            assert(wDataSize == (sizeof(tagServerRead) + pReadEvent->wDataSize));
+            assert(nDataSize >= sizeof(tagServerRead));
+            assert(nDataSize == (sizeof(tagServerRead) + pReadEvent->nDataSize));
             ServerItem* pServerItem = (ServerItem*)pReadEvent->pData;
-            if (wDataSize < sizeof(tagServerRead))
+            if (nDataSize < sizeof(tagServerRead))
             {
                 m_pIMsgServer->CloseSocket(pServerItem->GetSocketID());
                 return false;
             }
-            if (wDataSize != (sizeof(tagServerRead) + pReadEvent->wDataSize))
+            if (nDataSize != (sizeof(tagServerRead) + pReadEvent->nDataSize))
             {
                 m_pIMsgServer->CloseSocket(pServerItem->GetSocketID());
                 return false;
@@ -288,7 +288,7 @@ namespace Firefly
             bool bSuccess = false;
             try
             {
-                bSuccess = m_pIBridgeHook->OnServerRead(pServerItem, &(pReadEvent->MsgHeadInfo), pReadEvent + 1, pReadEvent->wDataSize);
+                bSuccess = m_pIBridgeHook->OnServerRead(pServerItem, &(pReadEvent->MsgHeadInfo), pReadEvent + 1, pReadEvent->nDataSize);
             }
             catch (...) {}
             if (bSuccess == false) m_pIMsgServer->CloseSocket(pServerItem->GetSocketID());
@@ -296,8 +296,8 @@ namespace Firefly
         }
         case MSG_SERVER_SHUT:
         {
-            assert(wDataSize == sizeof(tagServerShut));
-            if (wDataSize != sizeof(tagServerShut)) return false;
+            assert(nDataSize == sizeof(tagServerShut));
+            if (nDataSize != sizeof(tagServerShut)) return false;
             tagServerShut* pCloseEvent = (tagServerShut*)pData;
             ServerItem* pServerItem = (ServerItem*)pCloseEvent->pData;
             m_pIBridgeHook->OnServerShut(pServerItem);
@@ -305,13 +305,13 @@ namespace Firefly
         }
         case MSG_SERVER_READY:
         {
-            assert(wDataSize == sizeof(tagServerReady));
-            if (wDataSize != sizeof(tagServerReady)) return false;
+            assert(nDataSize == sizeof(tagServerReady));
+            if (nDataSize != sizeof(tagServerReady)) return false;
             m_pIBridgeHook->OnServerReady();
             return true;
         }
         }
-        return m_pIBridgeHook->OnBridgeData(wIdentifier, pData, wDataSize);
+        return m_pIBridgeHook->OnBridgeData(wIdentifier, pData, nDataSize);
     }
 
 }

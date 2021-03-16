@@ -26,7 +26,7 @@ public:
 
     virtual bool OnServerBind( ServerItem *pItem );
     virtual bool OnServerShut( ServerItem *pItem );
-    virtual bool OnServerRead( ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int wDataSize);
+    virtual bool OnServerRead( ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int nDataSize);
 
 protected:
     ServerMgr               m_ServerMgr;

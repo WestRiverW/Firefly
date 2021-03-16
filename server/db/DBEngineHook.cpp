@@ -43,9 +43,9 @@ bool DBEngineHook::OnDBEngineTimer( unsigned int unTimerID, unsigned int unParam
     return true;
 }
 
-bool DBEngineHook::OnDBEngineControl( unsigned short wControlID, void *pData, unsigned int wDataSize )
+bool DBEngineHook::OnDBEngineControl( unsigned short wControlID, void *pData, unsigned int nDataSize )
 {
-    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " eventID:" << wControlID << ",wDataSize:" << wDataSize;
+    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " eventID:" << wControlID << ",nDataSize:" << nDataSize;
 
     if( CUSTOMIZE_EVENT_PING_DB == wControlID )
     {
@@ -57,9 +57,9 @@ bool DBEngineHook::OnDBEngineControl( unsigned short wControlID, void *pData, un
     return true;
 }
 
-bool DBEngineHook::OnDBEngineRequest( unsigned short wRequestID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool DBEngineHook::OnDBEngineRequest( unsigned short wRequestID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
-    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " wRequestID:" << wRequestID << ",wDataSize:" << wDataSize;
+    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " wRequestID:" << wRequestID << ",nDataSize:" << nDataSize;
 
     return true;
 }
@@ -136,17 +136,17 @@ inline void DBEngineHook::DoMysqlQueryEx( DataBase *pDataBase, FFDBResult &resul
     LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " errno:" << result.m_nErrorCode << ",errorMsg:" << result.m_strErrorMsg << " row size:" << row.size();
 }
 
-bool DBEngineHook::OnMobileLogonAccounts( MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool DBEngineHook::OnMobileLogonAccounts( MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
     return true;
 }
 
-bool DBEngineHook::OnMobileLeaveAccounts( MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool DBEngineHook::OnMobileLeaveAccounts( MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
     return true;
 }
 
-bool DBEngineHook::OnMBRegister( MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool DBEngineHook::OnMBRegister( MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
     return true;
 }

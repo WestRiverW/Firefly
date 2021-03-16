@@ -68,7 +68,7 @@ namespace Firefly
     public:
         virtual ~IServerItemHook() {}
         virtual bool OnServerBind(ServerItem* pServerItem) = 0;
-        virtual bool OnServerRead(ServerItem* pItem, MsgHead* pMsgHead, void* pData, unsigned int wDataSize) = 0;
+        virtual bool OnServerRead(ServerItem* pItem, MsgHead* pMsgHead, void* pData, unsigned int nDataSize) = 0;
         virtual bool OnServerShut(ServerItem* pServerItem) = 0;
     };
 
@@ -202,7 +202,7 @@ namespace Firefly
     public:
         inline void SetClientIpStr(sockaddr_in* pclientaddr);
         bool SendData(MsgHead* pMsgHead);
-        bool SendData(MsgHead* pMsgHead, unsigned char* pData, unsigned short wDataSize);
+        bool SendData(MsgHead* pMsgHead, unsigned char* pData, unsigned short nDataSize);
         int SendData(FFMsgServerSend* pMsgServerSend);
         bool CloseSocket(unsigned short wRountID);
 
@@ -290,8 +290,8 @@ namespace Firefly
 
     public:
         virtual bool SendData(MsgHead* pMsgHead);
-        virtual bool SendData(MsgHead* pMsgHead, void* pData, unsigned int wDataSize);
-        virtual bool SendDataEx(MsgHead* pMsgHead, void* pData, unsigned int wDataSize);
+        virtual bool SendData(MsgHead* pMsgHead, void* pData, unsigned int nDataSize);
+        virtual bool SendDataEx(MsgHead* pMsgHead, void* pData, unsigned int nDataSize);
 
     public:
         virtual bool CloseSocket(unsigned int dwSocketID);
@@ -300,12 +300,12 @@ namespace Firefly
     public:
         virtual bool OnServerReady();
         virtual bool OnServerBind(ServerItem* pServerItem);
-        virtual bool OnServerRead(ServerItem* pItem, MsgHead* pMsgHead, void* pData, unsigned int wDataSize);
+        virtual bool OnServerRead(ServerItem* pItem, MsgHead* pMsgHead, void* pData, unsigned int nDataSize);
         virtual bool OnServerShut(ServerItem* pServerItem);
 
         virtual bool OnAsynEngineStart();
         virtual bool OnAsynEngineStop();
-        virtual bool OnAsynEngineData(unsigned short wIdentifier, void* pData, unsigned int wDataSize);
+        virtual bool OnAsynEngineData(unsigned short wIdentifier, void* pData, unsigned int nDataSize);
 
     protected:
         ServerItem* ActiveServerItem();

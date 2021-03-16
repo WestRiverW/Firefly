@@ -72,12 +72,12 @@ namespace Firefly
         virtual bool SetDBEngineHook(IDBEngineHook* pObject, unsigned short wHookCount);
 
     public:
-        virtual bool PostDBControl(unsigned short wControlID, void* pData, unsigned int wDataSize);
-        virtual bool PostDBRequest(unsigned short wRequestID, MsgHead* pMsgHead, void* pData, unsigned int wDataSize);
+        virtual bool PostDBControl(unsigned short wControlID, void* pData, unsigned int nDataSize);
+        virtual bool PostDBRequest(unsigned short wRequestID, MsgHead* pMsgHead, void* pData, unsigned int nDataSize);
     public:
         virtual bool OnAsynEngineStart();
         virtual bool OnAsynEngineStop();
-        virtual bool OnAsynEngineData(unsigned short wIdentifier, void* pData, unsigned int wDataSize);
+        virtual bool OnAsynEngineData(unsigned short wIdentifier, void* pData, unsigned int nDataSize);
 
     protected:
         std::mutex              m_CriticalLocker;

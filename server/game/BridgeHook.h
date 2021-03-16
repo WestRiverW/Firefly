@@ -33,7 +33,7 @@ public:
     virtual ~BridgeHook();
 
 public:
-    virtual bool OnEventControl( unsigned short wIdentifier, void *pData, unsigned int wDataSize );
+    virtual bool OnEventControl( unsigned short wIdentifier, void *pData, unsigned int nDataSize );
 
 public:
     virtual bool OnTimer( unsigned int unTimerID, unsigned int unMsgID );
@@ -41,25 +41,25 @@ public:
 public:
     virtual bool OnClientLink( unsigned int nServerID, int nErrorCode );
     virtual bool OnClientShut( unsigned int nServerID, char cbShutReason );
-    virtual bool OnClientRead( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize );
+    virtual bool OnClientRead( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize );
 
 public:
     virtual bool OnServerReady();
     virtual bool OnServerReadyDelay();
     virtual bool OnServerShut( ServerItem *pItem );
-    virtual bool OnServerRead( ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int wDataSize );
+    virtual bool OnServerRead( ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int nDataSize );
 
 protected:
-    virtual void OnLoginResp( void *pData, unsigned int wDataSize );
+    virtual void OnLoginResp( void *pData, unsigned int nDataSize );
 public:
-    bool SendData( MsgHead *pMsgHead, void *pData, int wDataSize );
+    bool SendData( MsgHead *pMsgHead, void *pData, int nDataSize );
 
 protected:
-    bool OnSubServerHallMsg( MsgHead *pMsgHead, void *pData, unsigned int wDataSize );
-    bool OnSubServerGameMsg( MsgHead *pMsgHead, void *pData, unsigned int wDataSize );
+    bool OnSubServerHallMsg( MsgHead *pMsgHead, void *pData, unsigned int nDataSize );
+    bool OnSubServerGameMsg( MsgHead *pMsgHead, void *pData, unsigned int nDataSize );
 
 public:
-    bool OnClientCenterRegResp( void *pData, unsigned int wDataSize );
+    bool OnClientCenterRegResp( void *pData, unsigned int nDataSize );
     void SetLoadSoNumber( int nLoadNumber );
 	
 protected:

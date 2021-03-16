@@ -14,7 +14,7 @@ namespace Firefly
 {
     struct tagDataHead
     {
-        unsigned int             wDataSize;
+        unsigned int             nDataSize;
         unsigned short           wIdentifier;
     };
 
@@ -25,7 +25,7 @@ namespace Firefly
         virtual ~DataQueue();
 
     public:
-        bool InsertData( unsigned short wIdentifier, void *pBuffer, unsigned int wDataSize );
+        bool InsertData( unsigned short wIdentifier, void *pBuffer, unsigned int nDataSize );
         bool DistillData( tagDataHead &DataHead, void *pBuffer, unsigned int wBufferSize );
         void RemoveData( bool bFreeMemroy );
         int Size();

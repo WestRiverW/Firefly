@@ -69,9 +69,9 @@ bool BridgeHook::OnClientShut( unsigned int nServerID, char cbShutReason )
     return true;
 }
 
-bool BridgeHook::OnClientRead( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool BridgeHook::OnClientRead( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
-    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " websocket read mainid:" << pMsgHead->wMainCmdID << ",subid:" << pMsgHead->wSubCmdID << ",wDataSize:" << wDataSize;
+    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " websocket read mainid:" << pMsgHead->wMainCmdID << ",subid:" << pMsgHead->wSubCmdID << ",nDataSize:" << nDataSize;
 
     return true;
 }
@@ -107,22 +107,22 @@ bool BridgeHook::OnServerShut( ServerItem *pItem )
     return true;
 }
 
-bool BridgeHook::OnServerRead(ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool BridgeHook::OnServerRead(ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
-    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " webread main cmd id:" << pMsgHead->wMainCmdID << ",sub Cmd id:" << pMsgHead->wSubCmdID << ",wDataSize:" << wDataSize;
+    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " webread main cmd id:" << pMsgHead->wMainCmdID << ",sub Cmd id:" << pMsgHead->wSubCmdID << ",nDataSize:" << nDataSize;
 
    /* switch( pMsgHead->wMainCmdID )
     {
         case CMD_WEB_BASE:
         {
-            return OnHttpRequest( pData, wDataSize );
+            return OnHttpRequest( pData, nDataSize );
         }
     }*/
 
     return true;
 }
 
-bool BridgeHook::OnHttpRequest( void *pData, unsigned int wDataSize )
+bool BridgeHook::OnHttpRequest( void *pData, unsigned int nDataSize )
 {
     LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " OnHttpRequest" << pData;
     struct evhttp_request *req = ( struct evhttp_request * )( *( long long * )pData );

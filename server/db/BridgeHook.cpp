@@ -44,12 +44,12 @@ bool BridgeHook::OnTimer( unsigned int unTimerID, unsigned int unMsgID )
     return true;
 }
 
-bool BridgeHook::OnDataBase( unsigned short wRequestID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool BridgeHook::OnDataBase( unsigned short wRequestID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
     LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " wRequestID:" << wRequestID ;
     //protocol::MsgBody msg;
 
-    //if( msg.ParseFromArray( ( char * )pData, wDataSize ) )
+    //if( msg.ParseFromArray( ( char * )pData, nDataSize ) )
     //{
     //    return true;
     //}
@@ -86,9 +86,9 @@ bool BridgeHook::OnClientShut( unsigned int nServerID, char cbShutReason )
     return true;
 }
 
-bool BridgeHook::OnClientRead( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool BridgeHook::OnClientRead( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
-    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " main cmd id:" << pMsgHead->wMainCmdID << ",sub Cmd id:" << pMsgHead->wSubCmdID << ",wDataSize:" << wDataSize;
+    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " main cmd id:" << pMsgHead->wMainCmdID << ",sub Cmd id:" << pMsgHead->wSubCmdID << ",nDataSize:" << nDataSize;
 
     return true;
 }
@@ -121,13 +121,13 @@ bool BridgeHook::OnServerShut( ServerItem *pItem )
     return true;
 }
 
-bool BridgeHook::OnServerRead(ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int wDataSize )
+bool BridgeHook::OnServerRead(ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
-    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << "dbread main id:" << pMsgHead->wMainCmdID << ",sub id:" << pMsgHead->wSubCmdID << ",wDataSize:" << wDataSize;
+    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << "dbread main id:" << pMsgHead->wMainCmdID << ",sub id:" << pMsgHead->wSubCmdID << ",nDataSize:" << nDataSize;
     
 	//
-	pMsgHead->wHallGateIndex = pItem->GetSocketID();
-	//m_pIDBEngine->PostDBRequest( pMsgHead->wSubCmdID, pMsgHead, pData, wDataSize );
+	pMsgHead->wHallGameIndex = pItem->GetSocketID();
+	//m_pIDBEngine->PostDBRequest( pMsgHead->wSubCmdID, pMsgHead, pData, nDataSize );
 	
 	return true;
 }
