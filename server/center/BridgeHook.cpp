@@ -25,7 +25,7 @@ bool BridgeHook::OnServerShut( ServerItem *pItem  )
 {
     if( pItem )
     {
-        m_ServerMgr.Erase( pItem );
+        //m_ServerMgr.Erase( pItem );
         pItem->ResetData();
     }
 

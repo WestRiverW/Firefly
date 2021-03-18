@@ -27,7 +27,7 @@ message ServerInfo
 	int32				InstID					= 3;
 	string              Ip                   	= 4;
     int32               Port                   	= 5;
-	int32				CurrConnect				= 6
+	int32				CurrConnect				= 6;
 	int32				MaxConnect				= 7;
 }
 

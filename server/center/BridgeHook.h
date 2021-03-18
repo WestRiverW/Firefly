@@ -11,10 +11,10 @@
 #define __BridgeHook_H__
 
 #include <map>
-#include "ServerMgr.h"
 #include <utils/Timer.h>
 #include <common/BaseCore.h>
 #include <base/BridgeBase.h>
+#include <share/ServerMgr.h>
 
 class BridgeHook : public BridgeBase
 {
@@ -29,7 +29,7 @@ public:
     virtual bool OnServerRead( ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int nDataSize);
 
 protected:
-    ServerMgr               m_ServerMgr;
+    //ServerMgr               m_ServerMgr;
 };
 
 #endif

@@ -2,7 +2,7 @@
 #include <glog/logging.h>
 #include <lua/LuaConfig.h>
 #include <external/json/cJSON.h>
-#include <share/CommonDefine.h>
+#include "CommonDefine.h"
 
 ServerMgr::ServerMgr()
 {
@@ -70,7 +70,7 @@ bool ServerMgr::Append(const pb::ServerInfo& info, ServerItem* pNetItem)
     bool bSuccess = false;
     auto iterMainType = m_mapServerInfo.find( info.maintype() );
 
-    if( iterMainType == m_mapServerInfo.end() )
+    /*if( iterMainType == m_mapServerInfo.end() )
 	{
         bSuccess = true;
     }
@@ -88,7 +88,7 @@ bool ServerMgr::Append(const pb::ServerInfo& info, ServerItem* pNetItem)
         data.pNetItem = pNetItem;
         data.ServerInfo = info;
         m_mapServerInfo[info.maintype()][info.serverid()] = data;
-	}
+	}*/
     return bSuccess;
 }
 

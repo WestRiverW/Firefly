@@ -18,6 +18,9 @@
     <ClCompile Include="base\LaunchBase.cpp">
       <Filter>base</Filter>
     </ClCompile>
+    <ClCompile Include="share\ServerMgr.cpp">
+      <Filter>share</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="share\ContactCenter.h">
@@ -36,6 +39,9 @@
       <Filter>base</Filter>
     </ClInclude>
     <ClInclude Include="share\CommonDefine.h">
+      <Filter>share</Filter>
+    </ClInclude>
+    <ClInclude Include="share\ServerMgr.h">
       <Filter>share</Filter>
     </ClInclude>
   </ItemGroup>

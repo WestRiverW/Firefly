@@ -1,18 +1,14 @@
 ParameterTable = 
 {
 	webport="56008",
-	-- 中心服配置信息
 	centerip="127.0.0.1",
 	centerport="8300",
 	maxconnection="128",
-	--同IPdengl数量限制
 	iplimitcount="100",
-	-- 数据库配置信息
 	dbip="192.168.1.90",
 	dbport="55001",
 	dbuser="root",
 	dbpwd="Abc123654",
-	-- 子游戏列表
 	subGame= 
 	{
 		"../lib/libjdddz.so",

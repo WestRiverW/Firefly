@@ -101,5 +101,6 @@ bool LaunchBase::LoadConfig()
 void LaunchBase::SetServerInfo(pb::ServerInfo& cfgInfo)
 {
     m_ServerInfo = cfgInfo;
+    std::unique_lock <std::mutex> lck(m_mutMain);
     m_condMain.notify_one();
 }

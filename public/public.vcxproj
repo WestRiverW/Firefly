@@ -38,6 +38,7 @@
     <ClCompile Include="base\BridgeBase.cpp" />
     <ClCompile Include="base\LaunchBase.cpp" />
     <ClCompile Include="share\ContactCenter.cpp" />
+    <ClCompile Include="share\ServerMgr.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base\BridgeBase.h" />
@@ -46,6 +47,7 @@
     <ClInclude Include="share\ContactCenter.h" />
     <ClInclude Include="share\GameFactory.h" />
     <ClInclude Include="share\ServerCmd.h" />
+    <ClInclude Include="share\ServerMgr.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8741608e-25f9-456e-8b19-b9d0173aff5e}</ProjectGuid>

@@ -38,12 +38,10 @@
     <ClCompile Include="BridgeHook.cpp" />
     <ClCompile Include="Launch.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ServerMgr.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BridgeHook.h" />
     <ClInclude Include="Launch.h" />
-    <ClInclude Include="ServerMgr.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{08b8a588-231f-4c50-a958-e0a371a3088a}</ProjectGuid>
