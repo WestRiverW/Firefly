@@ -1,7 +1,7 @@
 #!/bin/bash
 
 bin='web'
-export LD_LIBRARY_PATH=LD_LIBRARY_PATH:/usr/lib/:/usr/local/lib64/:/usr/local/lib/:../../lib/:./
+export LD_LIBRARY_PATH=LD_LIBRARY_PATH:/usr/lib/:/usr/local/lib64/:/usr/local/lib/:../lib/:./
 
 work_path=$(pwd)
 bin_pid=`cat ${work_path}/${bin}.pid 2>/dev/null | awk -F' ' '{ print $2}'`

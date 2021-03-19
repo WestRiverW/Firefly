@@ -10,6 +10,8 @@
 #ifndef __LaunchBase_H__
 #define __LaunchBase_H__
 
+#include <mutex>
+#include <condition_variable>
 #include <net/MsgServer.h>
 #include <net/MsgClient.h>
 #include <common/Bridge.h>

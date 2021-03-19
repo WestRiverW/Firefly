@@ -60,6 +60,7 @@ bool BridgeHook::OnDataBase( unsigned short wRequestID, MsgHead *pMsgHead, void 
 //
 bool BridgeHook::OnClientLink( unsigned int nServerID, int nErrorCode )
 {
+	LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " clientline serverid=" << nServerID << "  errorcode=" << nErrorCode;
     if (BridgeBase::OnClientLink(nServerID,nErrorCode))
     {
         return true;

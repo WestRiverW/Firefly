@@ -4,6 +4,9 @@
 #include <glog/logging.h>
 #include <share/CommonDefine.h>
 
+std::mutex              g_mutMain;
+std::condition_variable g_condMain;
+
 Launch::Launch()
 {
 }
@@ -22,8 +25,8 @@ bool Launch::Start()
     }
     //Connect center server.
     m_Timer.SetTimer( CONNECT_TIMER, 1, 1, SERVE_TYPE_CENTER );
-    std::unique_lock <std::mutex> lck( m_mutMain );
-    m_condMain.wait( lck );
+    std::unique_lock <std::mutex> lck(g_mutMain);
+    g_condMain.wait( lck );
 
     if( StartServer() == false )
     {
