@@ -28,6 +28,10 @@ public:
     virtual bool OnServerShut( ServerItem *pItem );
     virtual bool OnServerRead( ServerItem *pItem, MsgHead *pMsgHead, void *pData, unsigned int nDataSize);
 
+
+private:
+    bool OnSubMsgCenter(ServerItem* pItem, MsgHead* pMsgHead, void* pData, unsigned int nDataSize);
+
 protected:
     //ServerMgr               m_ServerMgr;
 };

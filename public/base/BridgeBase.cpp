@@ -16,7 +16,8 @@ BridgeBase::BridgeBase()
     m_pContactCenter(nullptr),
     m_pServerInfo(nullptr),
     m_strCenterIP(""),
-    m_usCenterPort(0)
+    m_usCenterPort(0),
+    m_eServerType(0)
 {
 }
 
@@ -58,6 +59,7 @@ bool BridgeBase::OnTimer( unsigned int unTimerID, unsigned int unMsgID )
         case SERVE_TYPE_CENTER:
         {
             m_pIMsgClient->Connect(SERVE_TYPE_CENTER, m_strCenterIP.c_str(), m_usCenterPort);
+            return true;
         }
         default:
             break;
@@ -79,7 +81,16 @@ bool BridgeBase::OnClientLink( unsigned int nServerID, int nErrorCode )
 {
     if (0 == nErrorCode)
     {
-
+        switch (nServerID)
+        {
+        case SERVE_TYPE_CENTER:
+        {
+            m_pContactCenter->PullCfgInfo(m_eServerType);
+            return true;
+        }
+        default:
+            break;
+        }
     }
     return false;
 }

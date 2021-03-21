@@ -36,6 +36,9 @@
 #define     CUSTOMIZE_EVENT_CONNECT     1000
 #define     CUSTOMIZE_EVENT_PING_DB     1001
 
+#define		SUB_PULL_SERVER_CFG			0
+#define		SUB_PULL_SERVER_CFG_RESP	1
+
 
 #endif
 

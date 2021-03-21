@@ -11,9 +11,12 @@
 #include "Launch.h"
 #include "BridgeHook.h"
 
+extern std::condition_variable g_condMain;
+
 BridgeHook::BridgeHook()
     : m_bCfgIsUpdated( false )
 {
+    m_eServerType = SERVE_TYPE_GATE;
 }
 
 BridgeHook::~BridgeHook()
@@ -97,7 +100,7 @@ bool BridgeHook::OnClientLink( unsigned int nServerID, int nErrorCode )
 //
 bool BridgeHook::OnClientShut( unsigned int nServerID, char cbShutReason )
 {
-    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " gatesocketshut";
+    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " gateclientshut";
     m_pTimer->SetTimer( CONNECT_TIMER, 3, 1, nServerID );
     return true;
 }
@@ -105,20 +108,46 @@ bool BridgeHook::OnClientShut( unsigned int nServerID, char cbShutReason )
 //
 bool BridgeHook::OnClientRead(unsigned int nServerID,  MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
-    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " gatesocketread " << pMsgHead->wMainCmdID << "  " << pMsgHead->wSubCmdID;
+    LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << " gateclientread " << pMsgHead->wMainCmdID << "  " << pMsgHead->wSubCmdID;
 
-
+    switch (pMsgHead->wMainCmdID)
+    {
+    case CMD_CENTER_BASE:
+    {
+        OnClientCenterMessage(nServerID, pMsgHead, pData, nDataSize);
+        break;
+    }
+    default:
+        break;
+    }
     return true;
 }
 
 bool BridgeHook::OnClientCenterMessage( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
+    switch (pMsgHead->wSubCmdID)
+    {
+    case SUB_PULL_SERVER_CFG_RESP:
+    {
+        OnClientPullCfgResp(nServerID, pMsgHead, pData, nDataSize);
+        break;
+    }
+    default:
+        break;
+    }
     return true;
 }
 
 bool BridgeHook::OnClientPullCfgResp( unsigned int nServerID, MsgHead *pMsgHead, void *pData, unsigned int nDataSize )
 {
-
+    pb::MsgBody msgBody;
+    if (msgBody.ParseFromArray(pData,nDataSize))
+    {
+        if (m_ServerInfo.ParseFromArray(msgBody.common().c_str(),msgBody.common().size()))
+        {
+            g_condMain.notify_one();
+        }
+    }
     return true;
 }
 

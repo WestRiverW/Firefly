@@ -38,6 +38,7 @@
     <ClCompile Include="base\BridgeBase.cpp" />
     <ClCompile Include="base\LaunchBase.cpp" />
     <ClCompile Include="share\ContactCenter.cpp" />
+    <ClCompile Include="share\MsgUtils.cpp" />
     <ClCompile Include="share\ServerMgr.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -46,6 +47,7 @@
     <ClInclude Include="share\CommonDefine.h" />
     <ClInclude Include="share\ContactCenter.h" />
     <ClInclude Include="share\GameFactory.h" />
+    <ClInclude Include="share\MsgUtils.h" />
     <ClInclude Include="share\ServerCmd.h" />
     <ClInclude Include="share\ServerMgr.h" />
   </ItemGroup>

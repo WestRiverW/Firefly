@@ -21,6 +21,7 @@ namespace Firefly
 		static void encode(MsgHead* pMsgHead, void* pData, unsigned int nDataSize, char* pDataBuffer, int& nPacketSize);
 		//static void encode(protocol::MsgBody* pMsgBody, void* data, int& nBodyLen);
 		//static bool decode(unsigned char* data, unsigned int nBodyLen, protocol::MsgBody* pMsgBody);
+		//static void encode(MsgHead* pMsgHead, MsgBody* pMsgBody, char* cbBuffer, int& nPackageSize);
 
 	public:
 		static const unsigned int MSG_HEAD_LENGTH;

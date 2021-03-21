@@ -21,6 +21,9 @@
     <ClCompile Include="share\ServerMgr.cpp">
       <Filter>share</Filter>
     </ClCompile>
+    <ClCompile Include="share\MsgUtils.cpp">
+      <Filter>share</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="share\ContactCenter.h">
@@ -42,6 +45,9 @@
       <Filter>share</Filter>
     </ClInclude>
     <ClInclude Include="share\ServerMgr.h">
+      <Filter>share</Filter>
+    </ClInclude>
+    <ClInclude Include="share\MsgUtils.h">
       <Filter>share</Filter>
     </ClInclude>
   </ItemGroup>

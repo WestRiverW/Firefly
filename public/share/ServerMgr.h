@@ -26,7 +26,7 @@ public:
     ServerItem *Find( int nMainType, int nServerID );
     pb::ServerInfo *GetConfig( int nMainType );
 
-private:
+public:
     bool ParseConfig(LuaConfig* pLuaConfig);
 
 private:

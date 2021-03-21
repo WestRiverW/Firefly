@@ -1,6 +1,6 @@
 #!/bin/bash
 
-bin='center.out'
+bin='center'
 export LD_LIBRARY_PATH=LD_LIBRARY_PATH:/usr/lib/:/usr/local/lib64/:/usr/local/lib/:../../lib/:./
 
 work_path=$(pwd)

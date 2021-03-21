@@ -11,8 +11,8 @@ using namespace Firefly;
 class ContactCenter
 {
 public:
-    ContactCenter(){}
-    ~ContactCenter(){}
+    ContactCenter();
+    ~ContactCenter();
 
     void SetMsgClient( IMsgClient *socketService );
     void Connect( unsigned int dwServerID, const char *szServerIP, unsigned short wPort );

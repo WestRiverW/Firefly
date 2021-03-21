@@ -19,6 +19,7 @@
 #include <lua/LuaConfig.h>
 #include <common/BaseDefine.h>
 #include "../share/ContactCenter.h"
+#include "../share/ServerMgr.h"
 #include <common.pb.h>
 
 using namespace Firefly;
@@ -49,6 +50,7 @@ protected:
     Bridge          	m_Bridge;
     LuaConfig           m_LuaConfig;
     ContactCenter       m_ContactCenter;
+    ServerMgr           m_ServerMgr;
 
     pb::ServerInfo          m_ServerInfo;
     std::mutex              m_mutMain;

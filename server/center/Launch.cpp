@@ -41,6 +41,10 @@ bool Launch::Init()
     m_BridgeHook.m_pLuaConfig = &m_LuaConfig;
     m_BridgeHook.m_pContactCenter = &m_ContactCenter;
     m_BridgeHook.m_pServerInfo = &m_ServerInfo;
+    m_BridgeHook.m_pServerMgr = &m_ServerMgr;
+    
+    m_ServerMgr.ParseConfig(&m_LuaConfig);
+
     return true;
 }
 

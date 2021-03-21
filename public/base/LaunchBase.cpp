@@ -51,6 +51,8 @@ bool LaunchBase::Init()
     //m_pBridgeHook->m_pIMsgServer = dynamic_cast<IMsgServer *>( &m_MsgServer );
     //m_pBridgeHook->m_pTimer = &m_Timer;
 
+    m_ContactCenter.SetMsgClient(dynamic_cast<IMsgClient*>(&m_MsgClient));
+
     LoadConfig();
 
     return true;

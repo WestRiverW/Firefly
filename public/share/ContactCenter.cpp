@@ -5,6 +5,18 @@
 #include "ServerCmd.h"
 #include "CommonDefine.h"
 #include "ContactCenter.h"
+#include "MsgUtils.h"
+
+ContactCenter::ContactCenter()
+    :m_pIMsgClient(nullptr)
+{
+
+}
+
+ContactCenter::~ContactCenter()
+{
+
+}
 
 void ContactCenter::SetMsgClient( IMsgClient *socketService )
 {
@@ -45,23 +57,22 @@ void ContactCenter::Register(pb::ServerInfo &cfgInfo)
 
 void ContactCenter::PullCfgInfo(int nMainType)
 {
-    /*LOG( INFO ) << strThreadLogFlag << __FUNCTION__;
-    protocol::SvrCfgInfoReq serverInfoReq;
-    serverInfoReq.set_nmaintype( nMainType );
-    protocol::MsgBody info;
-    serverInfoReq.SerializeToString( info.mutable_body() );
-    char cbDataBuffer[SOCKET_BUFFER_LEN] = { 0 };
-    int nBufferSize = 0;
-    MsgAssist::encode( &info, cbDataBuffer, nBufferSize );
+    //body
+    pb::MsgBody msgBody;
+    pb::ServerInfo SvrInfo;
+    SvrInfo.set_maintype(nMainType);
+    SvrInfo.SerializeToString(msgBody.mutable_common());
+	char cbDataBuffer[SOCKET_BUFFER_LEN] = { 0 };
+	int nBufferSize = 0;
+	MsgUtils::encode(&msgBody, cbDataBuffer, nBufferSize);
+    //head
+    MsgHead msgHead;
+    memset(&msgHead, 0, sizeof(msgHead));
+    msgHead.wMainCmdID = CMD_CENTER_BASE;
+    msgHead.wSubCmdID = SUB_PULL_SERVER_CFG;
+    msgHead.nBodyLen = nBufferSize;
 	
-	MsgHead msgHeadInfo;
-	msgHeadInfo.wMainCmdID = CMD_CENTER_BASE;
-	msgHeadInfo.wSubCmdID = SUB_CENTER_PULL_SERVER_CFG;
-	msgHeadInfo.nBodyLen = nBufferSize;
-	
-	LOG( INFO ) << strThreadLogFlag << __FUNCTION__ << "  len:" << nBufferSize;
-	
-    m_pIMsgClient->SendData( SERVE_TYPE_CENTER, &msgHeadInfo, cbDataBuffer, nBufferSize );*/
+    m_pIMsgClient->SendData(SERVE_TYPE_CENTER, &msgHead, cbDataBuffer, nBufferSize);
 }
 
 /*void ContactCenter::PullServerInfo(int nMainType )

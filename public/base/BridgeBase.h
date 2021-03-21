@@ -15,6 +15,7 @@
 #include <common/Bridge.h>
 #include <common/BaseCore.h>
 #include "../share/ContactCenter.h"
+#include "../share/ServerMgr.h"
 #include <common.pb.h>
 
 using namespace Firefly;
@@ -58,10 +59,15 @@ protected:
 	Timer* m_pTimer;
     LuaConfig           *m_pLuaConfig;
     ContactCenter       *m_pContactCenter;
+    ServerMgr* m_pServerMgr;
     pb::ServerInfo      *m_pServerInfo;
+
+    pb::ServerInfo          m_ServerInfo;
 
     std::string         m_strCenterIP;
     unsigned short      m_usCenterPort;
+
+    int                 m_eServerType;
 };
 
 #endif
